@@ -34,9 +34,9 @@ public:
     bool isBusy() const;
 
 private:
-    Request active_job;   /**< The request currently being processed */
-    int countdown_timer;  /**< Cycles remaining until current job completes */
-    bool busy;            /**< Whether the server is processing a request */
+    Request active_job{};     // The request currently being processed
+    int countdown_timer = 0;  // Cycles remaining until current job completes
+    bool busy = false;        // Whether the server is processing a request
 };
 
 #endif /* WEBSERVER_H */
