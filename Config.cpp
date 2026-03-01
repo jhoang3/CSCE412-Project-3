@@ -87,6 +87,12 @@ bool loadConfig(const std::string& path, Config& out) {
         } else if (key == "initialQueueMultiplier") {
             int v = 0;
             if (std::istringstream(value) >> v) out.initialQueueMultiplier = v;
+        } else if (key == "taskTimeMin") {
+            int v = 1;
+            if (std::istringstream(value) >> v) out.taskTimeMin = v;
+        } else if (key == "taskTimeMax") {
+            int v = 100;
+            if (std::istringstream(value) >> v) out.taskTimeMax = v;
         } else if (key == "blockedRange" || key == "blockedIP") {
             if (!value.empty()) out.blockedIPRanges.push_back(value);
         }

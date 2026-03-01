@@ -3,6 +3,8 @@ scaleUpThreshold=80
 scaleDownThreshold=50
 cooldownCycles=10
 initialQueueMultiplier=100
+taskTimeMin=1
+taskTimeMax=100
 
 blockedRange=10.0.0.0/8
 blockedRange=192.168.0.0/16

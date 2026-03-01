@@ -20,6 +20,8 @@ struct Config {
     int scaleDownThreshold = 50;    /**< Remove server when queue size < this * server count */
     int cooldownCycles = 10;        /**< Cycles to wait after scaling before scaling again */
     int initialQueueMultiplier = 100; /**< Initial queue size = servers * this */
+    int taskTimeMin = 1;            /**< Minimum clock cycles per request (inclusive) */
+    int taskTimeMax = 100;          /**< Maximum clock cycles per request (inclusive) */
     std::vector<std::string> blockedIPRanges; /**< IP ranges to block (e.g. "192.168.0.0/24") */
 };
 

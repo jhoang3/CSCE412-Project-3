@@ -34,6 +34,12 @@ public:
     void initialize(int numServers);
 
     /**
+     * @brief Writes starting queue size and task time range to the log (call once after initialize).
+     * @param log If non-null, starting info is written here.
+     */
+    void logStart(std::ostream* log) const;
+
+    /**
      * @brief Runs one simulation cycle: clock, maybe new request, process servers, scale, telemetry.
      * @param log If non-null, telemetry line is also written here (no ANSI codes).
      */
@@ -53,12 +59,16 @@ public:
     int getScaleUps() const { return scale_ups; }
     /** @brief Number of times a server was removed. */
     int getScaleDowns() const { return scale_downs; }
+    /** @brief Number of servers currently busy (processing a request). */
+    size_t getActiveServerCount() const;
+    /** @brief Number of servers currently idle. */
+    size_t getInactiveServerCount() const { return getServerCount() - getActiveServerCount(); }
 
 private:
     /** @brief Adds or removes a server based on queue size and cooldown. */
     void scaleCluster();
-    /** @brief Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped). */
-    void telemetry(std::ostream* log);
+    /** @brief Prints and optionally logs one line of telemetry (clock, queue, servers, active, inactive, added, dispatched, completed, processed, dropped). */
+    void telemetry(std::ostream* log, int added, int dispatched, int completed);
 
     Config settings;                    /**< Loaded configuration */
     std::queue<Request> buffer;          /**< Pending requests */

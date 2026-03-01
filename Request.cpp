@@ -6,6 +6,7 @@
  */
 
 #include "Request.h"
+#include "Config.h"
 #include <cstdlib>
 #include <ctime>
 #include <sstream>
@@ -27,11 +28,14 @@ std::string randomIP() {
 
 } // anonymous namespace
 
-Request generateRandomRequest() {
+Request generateRandomRequest(const Config& cfg) {
     Request r;
     r.IP_in = randomIP();
     r.IP_out = randomIP();
-    r.cycles_needed = randomInRange(1, 100);
+    int lo = cfg.taskTimeMin;
+    int hi = cfg.taskTimeMax;
+    if (lo > hi) { int t = lo; lo = hi; hi = t; }
+    r.cycles_needed = randomInRange(lo, hi);
     r.job_type = (std::rand() % 2 == 0) ? 'P' : 'S';
     return r;
 }

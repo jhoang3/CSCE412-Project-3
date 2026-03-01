@@ -8,6 +8,7 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
+#include "Config.h"
 #include <string>
 
 /**
@@ -23,8 +24,9 @@ struct Request {
 
 /**
  * @brief Generates a random request with random IPs, cycle count, and job type.
- * @return A new Request with random IP_in, IP_out, cycles_needed (e.g. 1–100), and job_type ('P' or 'S').
+ * @param cfg Config providing taskTimeMin and taskTimeMax for cycles_needed range.
+ * @return A new Request with random IP_in, IP_out, cycles_needed in [taskTimeMin, taskTimeMax], and job_type ('P' or 'S').
  */
-Request generateRandomRequest();
+Request generateRandomRequest(const Config& cfg);
 
 #endif /* REQUEST_H */

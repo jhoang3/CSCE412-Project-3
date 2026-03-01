@@ -41,6 +41,8 @@ int main() {
     std::ofstream logFile("loadbalancer.log");
     std::ostream* log = logFile.is_open() ? &logFile : nullptr;
 
+    lb.logStart(log);
+
     for (int cycle = 0; cycle < runTime; ++cycle) {
         lb.runCycle(log);
     }
@@ -52,6 +54,11 @@ int main() {
     std::cout << "Scale-downs:     " << lb.getScaleDowns() << "\n";
     std::cout << "Final servers:   " << lb.getServerCount() << "\n";
     std::cout << "Final queue:     " << lb.getQueueSize() << "\n";
+    std::cout << "\n--- End Status ---\n";
+    std::cout << "Remaining requests in queue: " << lb.getQueueSize() << "\n";
+    std::cout << "Active servers:   " << lb.getActiveServerCount() << "\n";
+    std::cout << "Inactive servers: " << lb.getInactiveServerCount() << "\n";
+    std::cout << "Rejected/discarded requests: " << lb.getTotalDropped() << "\n";
 
     if (log) {
         logFile << "\n--- Summary ---\n";
@@ -60,7 +67,12 @@ int main() {
         logFile << "Scale-ups:       " << lb.getScaleUps() << "\n";
         logFile << "Scale-downs:     " << lb.getScaleDowns() << "\n";
         logFile << "Final servers:   " << lb.getServerCount() << "\n";
-        logFile << "Final queue:     " << lb.getQueueSize() << "\n";
+        logFile << "Ending queue size: " << lb.getQueueSize() << "\n";
+        logFile << "\n--- End Status ---\n";
+        logFile << "Remaining requests in queue: " << lb.getQueueSize() << "\n";
+        logFile << "Active servers:   " << lb.getActiveServerCount() << "\n";
+        logFile << "Inactive servers: " << lb.getInactiveServerCount() << "\n";
+        logFile << "Rejected/discarded requests: " << lb.getTotalDropped() << "\n";
     }
 
     return 0;
