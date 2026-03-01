@@ -1,0 +1,206 @@
+\doxysection{Switch Class Reference}
+\hypertarget{classSwitch}{}\label{classSwitch}\index{Switch@{Switch}}
+
+
+Routes incoming requests by job\+\_\+type to a Streaming LB (\textquotesingle{}S\textquotesingle{}) or Processing LB (\textquotesingle{}P\textquotesingle{}); runs both LBs each cycle and exposes per-\/\+LB stats.  
+
+
+
+
+{\ttfamily \+\#include $<$Switch.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classSwitch_a5cb828c2e4823804d982ac9592730ac2}{Switch}} (const \doxymbox{\hyperlink{structConfig}{Config}} \&cfg)
+\begin{DoxyCompactList}\small\item\em Constructs the switch with shared configuration for both load balancers. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6}{initialize}} (int num\+Streaming\+Servers, int num\+Processing\+Servers)
+\begin{DoxyCompactList}\small\item\em Initializes both load balancers with the given server counts and fills queues with pre-\/routed requests. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classSwitch_a08046701edf558f881535c51705869e5}{run\+Cycle}} (std::\+ostream \texorpdfstring{$\ast$}{*}log=nullptr)
+\begin{DoxyCompactList}\small\item\em Runs one cycle:\+ generate one request (50\% chance), route by job\+\_\+type to the appropriate LB, then run both LBs (no internal request generation). \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \& \doxymbox{\hyperlink{classSwitch_a80213b1651c8bcb90d33206bd0e0c089}{get\+Streaming\+LB}} () const
+\begin{DoxyCompactList}\small\item\em Streaming load balancer (job\+\_\+type \textquotesingle{}S\textquotesingle{}). \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \& \doxymbox{\hyperlink{classSwitch_a4a099dce0649c3f02e8e5ac3f8d31bb5}{get\+Processing\+LB}} () const
+\begin{DoxyCompactList}\small\item\em Processing load balancer (job\+\_\+type \textquotesingle{}P\textquotesingle{}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structConfig}{Config}} \doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\+\_\+}}
+\item 
+\doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streaming\+LB\+\_\+}}
+\item 
+\doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processing\+LB\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Routes incoming requests by job\+\_\+type to a Streaming LB (\textquotesingle{}S\textquotesingle{}) or Processing LB (\textquotesingle{}P\textquotesingle{}); runs both LBs each cycle and exposes per-\/\+LB stats. 
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{classSwitch_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSwitch_a5cb828c2e4823804d982ac9592730ac2}\index{Switch@{Switch}!Switch@{Switch}}
+\index{Switch@{Switch}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{Switch()}{Switch()}}
+{\footnotesize\ttfamily \label{classSwitch_a5cb828c2e4823804d982ac9592730ac2} 
+Switch::\+\+Switch (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structConfig}{Config}} \&}]{cfg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs the switch with shared configuration for both load balancers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cfg} & Configuration (thresholds, cooldown, blocked IPs, task time range). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8cpp_source_l00012}{12}} of file \doxymbox{\hyperlink{Switch_8cpp_source}{Switch.\+cpp}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{classSwitch_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSwitch_a4a099dce0649c3f02e8e5ac3f8d31bb5}\index{Switch@{Switch}!getProcessingLB@{getProcessingLB}}
+\index{getProcessingLB@{getProcessingLB}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{getProcessingLB()}{getProcessingLB()}}
+{\footnotesize\ttfamily \label{classSwitch_a4a099dce0649c3f02e8e5ac3f8d31bb5} 
+const \doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \& Switch::\+get\+Processing\+LB (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Processing load balancer (job\+\_\+type \textquotesingle{}P\textquotesingle{}). 
+
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
+
+\Hypertarget{classSwitch_a80213b1651c8bcb90d33206bd0e0c089}\index{Switch@{Switch}!getStreamingLB@{getStreamingLB}}
+\index{getStreamingLB@{getStreamingLB}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{getStreamingLB()}{getStreamingLB()}}
+{\footnotesize\ttfamily \label{classSwitch_a80213b1651c8bcb90d33206bd0e0c089} 
+const \doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} \& Switch::\+get\+Streaming\+LB (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Streaming load balancer (job\+\_\+type \textquotesingle{}S\textquotesingle{}). 
+
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00042}{42}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
+
+\Hypertarget{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6}\index{Switch@{Switch}!initialize@{initialize}}
+\index{initialize@{initialize}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6} 
+void Switch::\+initialize (\begin{DoxyParamCaption}\item[{int}]{num\+Streaming\+Servers}{, }\item[{int}]{num\+Processing\+Servers}{}\end{DoxyParamCaption})}
+
+
+
+Initializes both load balancers with the given server counts and fills queues with pre-\/routed requests. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+Streaming\+Servers} & Number of web servers for the Streaming (S) load balancer. \\
+\hline
+{\em num\+Processing\+Servers} & Number of web servers for the Processing (P) load balancer. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8cpp_source_l00017}{17}} of file \doxymbox{\hyperlink{Switch_8cpp_source}{Switch.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
+
+\Hypertarget{classSwitch_a08046701edf558f881535c51705869e5}\index{Switch@{Switch}!runCycle@{runCycle}}
+\index{runCycle@{runCycle}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{runCycle()}{runCycle()}}
+{\footnotesize\ttfamily \label{classSwitch_a08046701edf558f881535c51705869e5} 
+void Switch::\+run\+Cycle (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Runs one cycle:\+ generate one request (50\% chance), route by job\+\_\+type to the appropriate LB, then run both LBs (no internal request generation). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log} & If non-\/null, each LB may write telemetry here. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8cpp_source_l00032}{32}} of file \doxymbox{\hyperlink{Switch_8cpp_source}{Switch.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classSwitch_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classSwitch_a2df4c665070850caf7c7af367b964b28}\index{Switch@{Switch}!processingLB\_@{processingLB\_}}
+\index{processingLB\_@{processingLB\_}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{processingLB\_}{processingLB\_}}
+{\footnotesize\ttfamily \label{classSwitch_a2df4c665070850caf7c7af367b964b28} 
+\doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} Switch::\+processing\+LB\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Switch_8h_source_l00044}{get\+Processing\+LB()}}, \doxymbox{\hyperlink{Switch_8cpp_source_l00017}{initialize()}}, \doxymbox{\hyperlink{Switch_8cpp_source_l00032}{run\+Cycle()}}, and \doxymbox{\hyperlink{Switch_8cpp_source_l00012}{Switch()}}.
+
+\Hypertarget{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}\index{Switch@{Switch}!settings\_@{settings\_}}
+\index{settings\_@{settings\_}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{settings\_}{settings\_}}
+{\footnotesize\ttfamily \label{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8} 
+\doxymbox{\hyperlink{structConfig}{Config}} Switch::\+settings\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Switch_8cpp_source_l00017}{initialize()}}, \doxymbox{\hyperlink{Switch_8cpp_source_l00032}{run\+Cycle()}}, and \doxymbox{\hyperlink{Switch_8cpp_source_l00012}{Switch()}}.
+
+\Hypertarget{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}\index{Switch@{Switch}!streamingLB\_@{streamingLB\_}}
+\index{streamingLB\_@{streamingLB\_}!Switch@{Switch}}
+\doxysubsubsection{\texorpdfstring{streamingLB\_}{streamingLB\_}}
+{\footnotesize\ttfamily \label{classSwitch_a1c49b15de99bba2e1441c3facbdf9688} 
+\doxymbox{\hyperlink{classLoadBalancer}{Load\+Balancer}} Switch::\+streaming\+LB\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{Switch_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Switch_8h_source_l00042}{get\+Streaming\+LB()}}, \doxymbox{\hyperlink{Switch_8cpp_source_l00017}{initialize()}}, \doxymbox{\hyperlink{Switch_8cpp_source_l00032}{run\+Cycle()}}, and \doxymbox{\hyperlink{Switch_8cpp_source_l00012}{Switch()}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{Switch_8h}{Switch.\+h}}\item 
+\doxymbox{\hyperlink{Switch_8cpp}{Switch.\+cpp}}\end{DoxyCompactItemize}

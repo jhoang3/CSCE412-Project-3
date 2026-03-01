@@ -81,22 +81,28 @@
 \DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (key\ ==\ \textcolor{stringliteral}{"{}initialQueueMultiplier"{}})\ \{}
 \DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::istringstream(value)\ >>\ v)\ out.\doxymbox{\hyperlink{structConfig_a3cfc17b1e4e71a3a9945112058c197cc}{initialQueueMultiplier}}\ =\ v;}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (key\ ==\ \textcolor{stringliteral}{"{}blockedRange"{}}\ ||\ key\ ==\ \textcolor{stringliteral}{"{}blockedIP"{}})\ \{}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.empty())\ out.\doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blockedIPRanges}}.push\_back(value);}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00093}00093\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00095}00095\ \}}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00096}00096\ }
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00097}\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{00097}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg,\ \textcolor{keyword}{const}\ std::string\&\ ip)\ \{}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00098}00098\ \ \ \ \ uint32\_t\ ipVal\ =\ ipStringToU32(ip);}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::string\&\ rangeStr\ :\ cfg.\doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blockedIPRanges}})\ \{}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ uint32\_t\ base;}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ prefix;}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parseIPRange(rangeStr,\ base,\ prefix))\ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ipInRange(ipVal,\ base,\ prefix))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00104}00104\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (key\ ==\ \textcolor{stringliteral}{"{}taskTimeMin"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::istringstream(value)\ >>\ v)\ out.\doxymbox{\hyperlink{structConfig_aba931df8a74a30bc6fc80da9f4ec12e0}{taskTimeMin}}\ =\ v;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (key\ ==\ \textcolor{stringliteral}{"{}taskTimeMax"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ 100;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::istringstream(value)\ >>\ v)\ out.\doxymbox{\hyperlink{structConfig_a8eb96063439f0fb4255f47c7ef89813c}{taskTimeMax}}\ =\ v;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (key\ ==\ \textcolor{stringliteral}{"{}blockedRange"{}}\ ||\ key\ ==\ \textcolor{stringliteral}{"{}blockedIP"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.empty())\ out.\doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blockedIPRanges}}.push\_back(value);}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00103}\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{00103}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg,\ \textcolor{keyword}{const}\ std::string\&\ ip)\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00104}00104\ \ \ \ \ uint32\_t\ ipVal\ =\ ipStringToU32(ip);}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::string\&\ rangeStr\ :\ cfg.\doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blockedIPRanges}})\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ uint32\_t\ base;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ prefix;}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parseIPRange(rangeStr,\ base,\ prefix))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ipInRange(ipVal,\ base,\ prefix))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Config_8cpp_source_l00112}00112\ \}}
 
 \end{DoxyCode}

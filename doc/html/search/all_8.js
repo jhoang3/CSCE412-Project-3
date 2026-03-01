@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_20files_0',['Key Files',['../index.html#files_sec',1,'']]]
+  ['job_5ftype_0',['job_type',['../structRequest.html#aafa62a577a34455eb8be90021328b236',1,'Request']]]
 ];

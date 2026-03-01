@@ -100,14 +100,15 @@ Introduction</h1>
 <li><b><a class="el" href="classWebServer.html" title="Represents a single server that accepts requests and processes them over multiple clock cycles.">WebServer</a></b> instances that process one request at a time over multiple clock cycles.</li>
 <li><b><a class="el" href="classLoadBalancer.html" title="Orchestrates request queue, web servers, scaling, firewall, and telemetry.">LoadBalancer</a></b> that holds a queue of requests, dispatches to idle servers, scales the cluster up/down based on queue size, and applies an IP firewall.</li>
 <li><b><a class="el" href="structConfig.html" title="Holds load balancer settings loaded from a config file.">Config</a></b> loaded from a file (thresholds, cooldown, blocked IP ranges).</li>
+<li><b><a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a></b> (bonus): routes requests by job_type to two load balancers (Streaming 'S' and Processing 'P'), with per-LB statistics.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage_sec"></a>
 Usage</h1>
 <p>Run the program and enter:</p><ul>
-<li>Number of web servers</li>
+<li>Use <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a>? (1=yes, 0=no). If yes, enter streaming and processing server counts; if no, enter single web server count.</li>
 <li>Run time (clock cycles)</li>
 </ul>
-<p>The initial queue is filled with (servers × 100) requests. Each cycle, new requests may arrive at random; the load balancer scales servers when the queue exceeds 80×servers (add one) or falls below 50×servers (remove one, if idle). Blocked IP ranges are configured in config.txt.</p>
+<p>The initial queue is filled with (servers × 100) requests (or, in <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> mode, requests are split by job type). Each cycle, new requests may arrive at random; the load balancer scales servers when the queue exceeds 80×servers (add one) or falls below 50×servers (remove one, if idle). Blocked IP ranges are configured in config.txt.</p>
 <h1 class="doxsection"><a class="anchor" id="files_sec"></a>
 Key Files</h1>
 <ul>
@@ -115,7 +116,8 @@ Key Files</h1>
 <li><a class="el" href="WebServer_8h.html" title="WebServer class that processes requests for the load balancer simulation.">WebServer.h</a> / <a class="el" href="WebServer_8cpp.html" title="Implementation of WebServer methods.">WebServer.cpp</a> — Single server that processes requests</li>
 <li><a class="el" href="Config_8h.html" title="Configuration struct and load/block helpers for the load balancer.">Config.h</a> / <a class="el" href="Config_8cpp.html" title="Implementation of config loading and IP blocking.">Config.cpp</a> — Configuration and IP blocking (firewall)</li>
 <li><a class="el" href="LoadBalancer_8h.html" title="Load balancer that manages a request queue and cluster of web servers.">LoadBalancer.h</a> / <a class="el" href="LoadBalancer_8cpp.html" title="Implementation of the load balancer (constructor, initialize, runCycle, scaleCluster,...">LoadBalancer.cpp</a> — Queue, cluster, scaling, telemetry</li>
-<li><a class="el" href="main_8cpp.html" title="Driver for the load balancer simulation.">main.cpp</a> — Driver: user input, config load, simulation loop, summary</li>
+<li><a class="el" href="Switch_8h.html" title="Switch that routes requests by job type (Streaming vs Processing) to two load balancers.">Switch.h</a> / <a class="el" href="Switch_8cpp.html" title="Implementation of the Switch (job-type routing to two load balancers).">Switch.cpp</a> — Job-type router to Streaming and Processing load balancers (bonus)</li>
+<li><a class="el" href="main_8cpp.html" title="Driver for the load balancer simulation (single LB or Switch with job-type routing).">main.cpp</a> — Driver: user input, config load, single-LB or <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> mode, simulation loop, summary</li>
 </ul>
 <dl class="section author"><dt>Author</dt><dd>Brady Nguyen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>February 2026 </dd></dl>

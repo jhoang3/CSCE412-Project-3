@@ -16,8 +16,14 @@ Orchestrates request queue, web servers, scaling, firewall, and telemetry.
 \begin{DoxyCompactList}\small\item\em Constructs the load balancer with the given configuration. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{classLoadBalancer_a16fe3fd208a89a33ea8428c24d619e44}{initialize}} (int num\+Servers)
 \begin{DoxyCompactList}\small\item\em Creates web servers and fills the queue with initial requests. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}{run\+Cycle}} (std::\+ostream \texorpdfstring{$\ast$}{*}log=nullptr)
-\begin{DoxyCompactList}\small\item\em Runs one simulation cycle:\+ clock, maybe new request, process servers, scale, telemetry. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classLoadBalancer_a2f2aa39b1b90342b586116cb01f68917}{initialize\+Servers\+Only}} (int num\+Servers)
+\begin{DoxyCompactList}\small\item\em Creates web servers only; does not fill the queue (used by \doxylink{classSwitch}{Switch} for job-\/type routing). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classLoadBalancer_a953d13b354698a4723197d55f3bf9913}{enqueue\+Request}} (const \doxymbox{\hyperlink{structRequest}{Request}} \&r)
+\begin{DoxyCompactList}\small\item\em Enqueues one request after firewall check (used by \doxylink{classSwitch}{Switch} to route by job type). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classLoadBalancer_a35f663b5b46c01922967c5e9521e6f2a}{log\+Start}} (std::\+ostream \texorpdfstring{$\ast$}{*}log) const
+\begin{DoxyCompactList}\small\item\em Writes starting queue size and task time range to the log (call once after initialize). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classLoadBalancer_a40e607dd65ba09c4ea65cb56a8dd715e}{run\+Cycle}} (std::\+ostream \texorpdfstring{$\ast$}{*}log=nullptr, bool add\+Random\+Request=true)
+\begin{DoxyCompactList}\small\item\em Runs one simulation cycle:\+ clock, optionally new request, process servers, scale, telemetry. \end{DoxyCompactList}\item 
 long \doxymbox{\hyperlink{classLoadBalancer_a4a8f2c2b9c38d14e74fb8f2bca33bc5b}{get\+Clock}} () const
 \begin{DoxyCompactList}\small\item\em Current system clock (cycles elapsed). \end{DoxyCompactList}\item 
 size\+\_\+t \doxymbox{\hyperlink{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}{get\+Queue\+Size}} () const
@@ -31,14 +37,18 @@ int \doxymbox{\hyperlink{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}{ge
 int \doxymbox{\hyperlink{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}{get\+Scale\+Ups}} () const
 \begin{DoxyCompactList}\small\item\em Number of times a server was added. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}{get\+Scale\+Downs}} () const
-\begin{DoxyCompactList}\small\item\em Number of times a server was removed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Number of times a server was removed. \end{DoxyCompactList}\item 
+size\+\_\+t \doxymbox{\hyperlink{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39}{get\+Active\+Server\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Number of servers currently busy (processing a request). \end{DoxyCompactList}\item 
+size\+\_\+t \doxymbox{\hyperlink{classLoadBalancer_ac17f0b6f7025ca840c5c860f9c589bb6}{get\+Inactive\+Server\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Number of servers currently idle. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{scale\+Cluster}} ()
 \begin{DoxyCompactList}\small\item\em Adds or removes a server based on queue size and cooldown. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}{telemetry}} (std::\+ostream \texorpdfstring{$\ast$}{*}log)
-\begin{DoxyCompactList}\small\item\em Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped). \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \doxymbox{\hyperlink{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698}{telemetry}} (std::\+ostream \texorpdfstring{$\ast$}{*}log, int added, int dispatched, int completed)
+\begin{DoxyCompactList}\small\item\em Prints and optionally logs one line of telemetry (clock, queue, servers, active, inactive, added, dispatched, completed, processed, dropped). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -96,6 +106,43 @@ Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00014}{14}} of
 \label{doc-func-members}
 \Hypertarget{classLoadBalancer_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classLoadBalancer_a953d13b354698a4723197d55f3bf9913}\index{LoadBalancer@{LoadBalancer}!enqueueRequest@{enqueueRequest}}
+\index{enqueueRequest@{enqueueRequest}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{enqueueRequest()}{enqueueRequest()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_a953d13b354698a4723197d55f3bf9913} 
+void Load\+Balancer::\+enqueue\+Request (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRequest}{Request}} \&}]{r}{}\end{DoxyParamCaption})}
+
+
+
+Enqueues one request after firewall check (used by \doxylink{classSwitch}{Switch} to route by job type). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & \doxylink{structRequest}{Request} to enqueue; if IP is blocked, total\+\_\+dropped is incremented instead. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00036}{36}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+
+\Hypertarget{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39}\index{LoadBalancer@{LoadBalancer}!getActiveServerCount@{getActiveServerCount}}
+\index{getActiveServerCount@{getActiveServerCount}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{getActiveServerCount()}{getActiveServerCount()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39} 
+size\+\_\+t Load\+Balancer::\+get\+Active\+Server\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Number of servers currently busy (processing a request). 
+
+
+
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00113}{113}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00078}{get\+Inactive\+Server\+Count()}}, \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
+
 \Hypertarget{classLoadBalancer_a4a8f2c2b9c38d14e74fb8f2bca33bc5b}\index{LoadBalancer@{LoadBalancer}!getClock@{getClock}}
 \index{getClock@{getClock}!LoadBalancer@{LoadBalancer}}
 \doxysubsubsection{\texorpdfstring{getClock()}{getClock()}}
@@ -108,7 +155,25 @@ Current system clock (cycles elapsed).
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+
+\Hypertarget{classLoadBalancer_ac17f0b6f7025ca840c5c860f9c589bb6}\index{LoadBalancer@{LoadBalancer}!getInactiveServerCount@{getInactiveServerCount}}
+\index{getInactiveServerCount@{getInactiveServerCount}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{getInactiveServerCount()}{getInactiveServerCount()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_ac17f0b6f7025ca840c5c860f9c589bb6} 
+size\+\_\+t Load\+Balancer::\+get\+Inactive\+Server\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Number of servers currently idle. 
+
+
+
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00078}{78}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}\index{LoadBalancer@{LoadBalancer}!getQueueSize@{getQueueSize}}
 \index{getQueueSize@{getQueueSize}!LoadBalancer@{LoadBalancer}}
@@ -122,11 +187,11 @@ Current queue size.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}\index{LoadBalancer@{LoadBalancer}!getScaleDowns@{getScaleDowns}}
 \index{getScaleDowns@{getScaleDowns}!LoadBalancer@{LoadBalancer}}
@@ -140,11 +205,11 @@ Number of times a server was removed.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00055}{55}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00074}{74}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}\index{LoadBalancer@{LoadBalancer}!getScaleUps@{getScaleUps}}
 \index{getScaleUps@{getScaleUps}!LoadBalancer@{LoadBalancer}}
@@ -158,11 +223,11 @@ Number of times a server was added.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a26f96138c3f861eae6fbf62d1d4ea02e}\index{LoadBalancer@{LoadBalancer}!getServerCount@{getServerCount}}
 \index{getServerCount@{getServerCount}!LoadBalancer@{LoadBalancer}}
@@ -176,11 +241,11 @@ Current number of web servers.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00078}{get\+Inactive\+Server\+Count()}}, and \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}\index{LoadBalancer@{LoadBalancer}!getTotalDropped@{getTotalDropped}}
 \index{getTotalDropped@{getTotalDropped}!LoadBalancer@{LoadBalancer}}
@@ -194,11 +259,11 @@ Total requests dropped (firewall) so far.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a650baa17f89cf43513df60d04f851dad}\index{LoadBalancer@{LoadBalancer}!getTotalProcessed@{getTotalProcessed}}
 \index{getTotalProcessed@{getTotalProcessed}!LoadBalancer@{LoadBalancer}}
@@ -212,11 +277,11 @@ Total requests processed so far.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a16fe3fd208a89a33ea8428c24d619e44}\index{LoadBalancer@{LoadBalancer}!initialize@{initialize}}
 \index{initialize@{initialize}!LoadBalancer@{LoadBalancer}}
@@ -239,30 +304,74 @@ Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{16}} of
 
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
-\Hypertarget{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}\index{LoadBalancer@{LoadBalancer}!runCycle@{runCycle}}
-\index{runCycle@{runCycle}!LoadBalancer@{LoadBalancer}}
-\doxysubsubsection{\texorpdfstring{runCycle()}{runCycle()}}
-{\footnotesize\ttfamily \label{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1} 
-void Load\+Balancer::\+run\+Cycle (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+\Hypertarget{classLoadBalancer_a2f2aa39b1b90342b586116cb01f68917}\index{LoadBalancer@{LoadBalancer}!initializeServersOnly@{initializeServersOnly}}
+\index{initializeServersOnly@{initializeServersOnly}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{initializeServersOnly()}{initializeServersOnly()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_a2f2aa39b1b90342b586116cb01f68917} 
+void Load\+Balancer::\+initialize\+Servers\+Only (\begin{DoxyParamCaption}\item[{int}]{num\+Servers}{}\end{DoxyParamCaption})}
 
 
 
-Runs one simulation cycle:\+ clock, maybe new request, process servers, scale, telemetry. 
+Creates web servers only; does not fill the queue (used by \doxylink{classSwitch}{Switch} for job-\/type routing). 
 
 
 \begin{DoxyParams}{Parameters}
-{\em log} & If non-\/null, telemetry line is also written here (no ANSI codes). \\
+{\em num\+Servers} & Number of web servers to create. \\
 \hline
 \end{DoxyParams}
 
 
 Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{31}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
 
+\Hypertarget{classLoadBalancer_a35f663b5b46c01922967c5e9521e6f2a}\index{LoadBalancer@{LoadBalancer}!logStart@{logStart}}
+\index{logStart@{logStart}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{logStart()}{logStart()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_a35f663b5b46c01922967c5e9521e6f2a} 
+void Load\+Balancer::\+log\+Start (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{}\end{DoxyParamCaption}) const}
 
 
-Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+
+Writes starting queue size and task time range to the log (call once after initialize). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log} & If non-\/null, starting info is written here. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00044}{44}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
+
+\Hypertarget{classLoadBalancer_a40e607dd65ba09c4ea65cb56a8dd715e}\index{LoadBalancer@{LoadBalancer}!runCycle@{runCycle}}
+\index{runCycle@{runCycle}!LoadBalancer@{LoadBalancer}}
+\doxysubsubsection{\texorpdfstring{runCycle()}{runCycle()}}
+{\footnotesize\ttfamily \label{classLoadBalancer_a40e607dd65ba09c4ea65cb56a8dd715e} 
+void Load\+Balancer::\+run\+Cycle (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{ = {\ttfamily nullptr}, }\item[{bool}]{add\+Random\+Request}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+
+
+Runs one simulation cycle:\+ clock, optionally new request, process servers, scale, telemetry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log} & If non-\/null, telemetry line is also written here (no ANSI codes). \\
+\hline
+{\em add\+Random\+Request} & If true, may add one random request this cycle; if false, only process (for \doxylink{classSwitch}{Switch} mode). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{50}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00017}{main()}}.
 
 \Hypertarget{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}\index{LoadBalancer@{LoadBalancer}!scaleCluster@{scaleCluster}}
 \index{scaleCluster@{scaleCluster}!LoadBalancer@{LoadBalancer}}
@@ -276,29 +385,29 @@ Adds or removes a server based on queue size and cooldown.
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{61}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{95}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}.
 
-\Hypertarget{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}\index{LoadBalancer@{LoadBalancer}!telemetry@{telemetry}}
+\Hypertarget{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698}\index{LoadBalancer@{LoadBalancer}!telemetry@{telemetry}}
 \index{telemetry@{telemetry}!LoadBalancer@{LoadBalancer}}
 \doxysubsubsection{\texorpdfstring{telemetry()}{telemetry()}}
-{\footnotesize\ttfamily \label{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04} 
-void Load\+Balancer::\+telemetry (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \label{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698} 
+void Load\+Balancer::\+telemetry (\begin{DoxyParamCaption}\item[{std::\+ostream \texorpdfstring{$\ast$}{*}}]{log}{, }\item[{int}]{added}{, }\item[{int}]{dispatched}{, }\item[{int}]{completed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped). 
+Prints and optionally logs one line of telemetry (clock, queue, servers, active, inactive, added, dispatched, completed, processed, dropped). 
 
 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{79}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{120}} of file \doxymbox{\hyperlink{LoadBalancer_8cpp_source}{Load\+Balancer.\+cpp}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}.
 
 
 
@@ -313,11 +422,11 @@ std::\+queue$<$\doxymbox{\hyperlink{structRequest}{Request}}$>$ Load\+Balancer::
 
 Pending requests 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00045}{get\+Queue\+Size()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{telemetry()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00036}{enqueue\+Request()}}, \doxymbox{\hyperlink{LoadBalancer_8h_source_l00064}{get\+Queue\+Size()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00044}{log\+Start()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
 
 \Hypertarget{classLoadBalancer_aebb658091859f912d184c48d17b13225}\index{LoadBalancer@{LoadBalancer}!cluster@{cluster}}
 \index{cluster@{cluster}!LoadBalancer@{LoadBalancer}}
@@ -327,11 +436,11 @@ std::\+vector$<$\doxymbox{\hyperlink{classWebServer}{Web\+Server}}$>$ Load\+Bala
 
 Web server pool 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00088}{88}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00047}{get\+Server\+Count()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{telemetry()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00113}{get\+Active\+Server\+Count()}}, \doxymbox{\hyperlink{LoadBalancer_8h_source_l00066}{get\+Server\+Count()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{initialize\+Servers\+Only()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
 
 \Hypertarget{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}\index{LoadBalancer@{LoadBalancer}!cooldown\_timer@{cooldown\_timer}}
 \index{cooldown\_timer@{cooldown\_timer}!LoadBalancer@{LoadBalancer}}
@@ -341,11 +450,11 @@ int Load\+Balancer::\+cooldown\+\_\+timer = 0\hspace{0.3cm}{\ttfamily [private]}
 
 Cycles until next scale decision 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00067}{67}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00090}{90}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}.
 
 \Hypertarget{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}\index{LoadBalancer@{LoadBalancer}!scale\_downs@{scale\_downs}}
 \index{scale\_downs@{scale\_downs}!LoadBalancer@{LoadBalancer}}
@@ -355,11 +464,11 @@ int Load\+Balancer::\+scale\+\_\+downs = 0\hspace{0.3cm}{\ttfamily [private]}}
 
 Number of servers removed 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00055}{get\+Scale\+Downs()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00074}{get\+Scale\+Downs()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}.
 
 \Hypertarget{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}\index{LoadBalancer@{LoadBalancer}!scale\_ups@{scale\_ups}}
 \index{scale\_ups@{scale\_ups}!LoadBalancer@{LoadBalancer}}
@@ -369,11 +478,11 @@ int Load\+Balancer::\+scale\+\_\+ups = 0\hspace{0.3cm}{\ttfamily [private]}}
 
 Number of servers added 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00093}{93}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00053}{get\+Scale\+Ups()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00072}{get\+Scale\+Ups()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}.
 
 \Hypertarget{classLoadBalancer_a870137068fe88548727114061d472670}\index{LoadBalancer@{LoadBalancer}!settings@{settings}}
 \index{settings@{settings}!LoadBalancer@{LoadBalancer}}
@@ -383,11 +492,11 @@ Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00053}{get\+Scale\+Up
 
 Loaded configuration 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00014}{Load\+Balancer()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00061}{scale\+Cluster()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00036}{enqueue\+Request()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00014}{Load\+Balancer()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00044}{log\+Start()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00095}{scale\+Cluster()}}.
 
 \Hypertarget{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}\index{LoadBalancer@{LoadBalancer}!system\_clock@{system\_clock}}
 \index{system\_clock@{system\_clock}!LoadBalancer@{LoadBalancer}}
@@ -397,11 +506,11 @@ long Load\+Balancer::\+system\+\_\+clock = 0\hspace{0.3cm}{\ttfamily [private]}}
 
 Current cycle count 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00089}{89}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00043}{get\+Clock()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{telemetry()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00062}{get\+Clock()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
 
 \Hypertarget{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}\index{LoadBalancer@{LoadBalancer}!total\_dropped@{total\_dropped}}
 \index{total\_dropped@{total\_dropped}!LoadBalancer@{LoadBalancer}}
@@ -411,11 +520,11 @@ int Load\+Balancer::\+total\+\_\+dropped = 0\hspace{0.3cm}{\ttfamily [private]}}
 
 Requests blocked by firewall 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00092}{92}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00051}{get\+Total\+Dropped()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{telemetry()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00036}{enqueue\+Request()}}, \doxymbox{\hyperlink{LoadBalancer_8h_source_l00070}{get\+Total\+Dropped()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{initialize()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
 
 \Hypertarget{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}\index{LoadBalancer@{LoadBalancer}!total\_processed@{total\_processed}}
 \index{total\_processed@{total\_processed}!LoadBalancer@{LoadBalancer}}
@@ -425,11 +534,11 @@ int Load\+Balancer::\+total\+\_\+processed = 0\hspace{0.3cm}{\ttfamily [private]
 
 Requests completed so far 
 
-Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
+Definition at line \doxymbox{\hyperlink{LoadBalancer_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{LoadBalancer_8h_source}{Load\+Balancer.\+h}}.
 
 
 
-Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00049}{get\+Total\+Processed()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00079}{telemetry()}}.
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8h_source_l00068}{get\+Total\+Processed()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00050}{run\+Cycle()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00120}{telemetry()}}.
 
 
 

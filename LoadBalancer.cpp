@@ -28,18 +28,30 @@ void LoadBalancer::initialize(int numServers) {
     }
 }
 
+void LoadBalancer::initializeServersOnly(int numServers) {
+    cluster.clear();
+    cluster.resize(numServers);
+}
+
+void LoadBalancer::enqueueRequest(const Request& r) {
+    if (isIPBlocked(settings, r.IP_in)) {
+        ++total_dropped;
+    } else {
+        buffer.push(r);
+    }
+}
+
 void LoadBalancer::logStart(std::ostream* log) const {
     if (!log) return;
     *log << "Starting queue size: " << buffer.size() << "\n";
     *log << "Task time range: " << settings.taskTimeMin << "-" << settings.taskTimeMax << " cycles\n";
 }
 
-void LoadBalancer::runCycle(std::ostream* log) {
+void LoadBalancer::runCycle(std::ostream* log, bool addRandomRequest) {
     ++system_clock;
 
     int added_this_cycle = 0;
-    /* Maybe add one new request this cycle (e.g. 50% chance). */
-    if (std::rand() % 2 == 0) {
+    if (addRandomRequest && std::rand() % 2 == 0) {
         Request r = generateRandomRequest(settings);
         if (isIPBlocked(settings, r.IP_in)) {
             ++total_dropped;

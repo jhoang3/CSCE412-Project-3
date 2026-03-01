@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['telemetry_0',['telemetry',['../classLoadBalancer.html#a7a1af59b03cfce71a1de7979bea15a04',1,'LoadBalancer']]],
-  ['tick_1',['tick',['../classWebServer.html#af3fbbb5c55f04c42e951f72c6cb6e9e9',1,'WebServer']]],
-  ['total_5fdropped_2',['total_dropped',['../classLoadBalancer.html#a3620bfa0de269e60c7c99a8f2e3c664f',1,'LoadBalancer']]],
-  ['total_5fprocessed_3',['total_processed',['../classLoadBalancer.html#acb4b5b20aa3d3bac3dc0a70e698b31b5',1,'LoadBalancer']]]
+  ['request_0',['Request',['../structRequest.html',1,'']]],
+  ['request_2ecpp_1',['Request.cpp',['../Request_8cpp.html',1,'']]],
+  ['request_2eh_2',['Request.h',['../Request_8h.html',1,'']]],
+  ['runcycle_3',['runCycle',['../classLoadBalancer.html#a40e607dd65ba09c4ea65cb56a8dd715e',1,'LoadBalancer::runCycle()'],['../classSwitch.html#a08046701edf558f881535c51705869e5',1,'Switch::runCycle()']]]
 ];

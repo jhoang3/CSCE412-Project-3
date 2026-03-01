@@ -104,8 +104,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad2fa24a055b440b9d1d602c7ae41be01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the load balancer with the given configuration.  <br /></td></tr>
 <tr class="memitem:a16fe3fd208a89a33ea8428c24d619e44" id="r_a16fe3fd208a89a33ea8428c24d619e44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a16fe3fd208a89a33ea8428c24d619e44">initialize</a> (int numServers)</td></tr>
 <tr class="memdesc:a16fe3fd208a89a33ea8428c24d619e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates web servers and fills the queue with initial requests.  <br /></td></tr>
-<tr class="memitem:a46afac3a28d54c708c26340793f37fa1" id="r_a46afac3a28d54c708c26340793f37fa1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a46afac3a28d54c708c26340793f37fa1">runCycle</a> (std::ostream *log=nullptr)</td></tr>
-<tr class="memdesc:a46afac3a28d54c708c26340793f37fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs one simulation cycle: clock, maybe new request, process servers, scale, telemetry.  <br /></td></tr>
+<tr class="memitem:a2f2aa39b1b90342b586116cb01f68917" id="r_a2f2aa39b1b90342b586116cb01f68917"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f2aa39b1b90342b586116cb01f68917">initializeServersOnly</a> (int numServers)</td></tr>
+<tr class="memdesc:a2f2aa39b1b90342b586116cb01f68917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates web servers only; does not fill the queue (used by <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> for job-type routing).  <br /></td></tr>
+<tr class="memitem:a953d13b354698a4723197d55f3bf9913" id="r_a953d13b354698a4723197d55f3bf9913"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a953d13b354698a4723197d55f3bf9913">enqueueRequest</a> (const <a class="el" href="structRequest.html">Request</a> &amp;r)</td></tr>
+<tr class="memdesc:a953d13b354698a4723197d55f3bf9913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues one request after firewall check (used by <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> to route by job type).  <br /></td></tr>
+<tr class="memitem:a35f663b5b46c01922967c5e9521e6f2a" id="r_a35f663b5b46c01922967c5e9521e6f2a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a35f663b5b46c01922967c5e9521e6f2a">logStart</a> (std::ostream *log) const</td></tr>
+<tr class="memdesc:a35f663b5b46c01922967c5e9521e6f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes starting queue size and task time range to the log (call once after initialize).  <br /></td></tr>
+<tr class="memitem:a40e607dd65ba09c4ea65cb56a8dd715e" id="r_a40e607dd65ba09c4ea65cb56a8dd715e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40e607dd65ba09c4ea65cb56a8dd715e">runCycle</a> (std::ostream *log=nullptr, bool addRandomRequest=true)</td></tr>
+<tr class="memdesc:a40e607dd65ba09c4ea65cb56a8dd715e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs one simulation cycle: clock, optionally new request, process servers, scale, telemetry.  <br /></td></tr>
 <tr class="memitem:a4a8f2c2b9c38d14e74fb8f2bca33bc5b" id="r_a4a8f2c2b9c38d14e74fb8f2bca33bc5b"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a4a8f2c2b9c38d14e74fb8f2bca33bc5b">getClock</a> () const</td></tr>
 <tr class="memdesc:a4a8f2c2b9c38d14e74fb8f2bca33bc5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current system clock (cycles elapsed).  <br /></td></tr>
 <tr class="memitem:a2750c29abbe621ef52cb1a5b935a07ce" id="r_a2750c29abbe621ef52cb1a5b935a07ce"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a2750c29abbe621ef52cb1a5b935a07ce">getQueueSize</a> () const</td></tr>
@@ -120,13 +126,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9f733657000dcac05de9b40e2d25cc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of times a server was added.  <br /></td></tr>
 <tr class="memitem:ad9b61d568d819ad2d29497ecb7ca6a4c" id="r_ad9b61d568d819ad2d29497ecb7ca6a4c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad9b61d568d819ad2d29497ecb7ca6a4c">getScaleDowns</a> () const</td></tr>
 <tr class="memdesc:ad9b61d568d819ad2d29497ecb7ca6a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of times a server was removed.  <br /></td></tr>
+<tr class="memitem:adc68ab8ccc2b7d8a653278dc7689cb39" id="r_adc68ab8ccc2b7d8a653278dc7689cb39"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#adc68ab8ccc2b7d8a653278dc7689cb39">getActiveServerCount</a> () const</td></tr>
+<tr class="memdesc:adc68ab8ccc2b7d8a653278dc7689cb39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of servers currently busy (processing a request).  <br /></td></tr>
+<tr class="memitem:ac17f0b6f7025ca840c5c860f9c589bb6" id="r_ac17f0b6f7025ca840c5c860f9c589bb6"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac17f0b6f7025ca840c5c860f9c589bb6">getInactiveServerCount</a> () const</td></tr>
+<tr class="memdesc:ac17f0b6f7025ca840c5c860f9c589bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of servers currently idle.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a22e465c2a8dbfecabf5c90d053f4b444" id="r_a22e465c2a8dbfecabf5c90d053f4b444"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22e465c2a8dbfecabf5c90d053f4b444">scaleCluster</a> ()</td></tr>
 <tr class="memdesc:a22e465c2a8dbfecabf5c90d053f4b444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds or removes a server based on queue size and cooldown.  <br /></td></tr>
-<tr class="memitem:a7a1af59b03cfce71a1de7979bea15a04" id="r_a7a1af59b03cfce71a1de7979bea15a04"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7a1af59b03cfce71a1de7979bea15a04">telemetry</a> (std::ostream *log)</td></tr>
-<tr class="memdesc:a7a1af59b03cfce71a1de7979bea15a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped).  <br /></td></tr>
+<tr class="memitem:aaa7500f35c86c259bf215aef6f9cb698" id="r_aaa7500f35c86c259bf215aef6f9cb698"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaa7500f35c86c259bf215aef6f9cb698">telemetry</a> (std::ostream *log, int added, int dispatched, int completed)</td></tr>
+<tr class="memdesc:aaa7500f35c86c259bf215aef6f9cb698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints and optionally logs one line of telemetry (clock, queue, servers, active, inactive, added, dispatched, completed, processed, dropped).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -181,6 +191,56 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a953d13b354698a4723197d55f3bf9913" name="a953d13b354698a4723197d55f3bf9913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a953d13b354698a4723197d55f3bf9913">&#9670;&#160;</a></span>enqueueRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LoadBalancer::enqueueRequest </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRequest.html">Request</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enqueues one request after firewall check (used by <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> to route by job type). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td><a class="el" href="structRequest.html" title="Represents a single web request with IP addresses, processing time, and job type.">Request</a> to enqueue; if IP is blocked, total_dropped is incremented instead. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00036">36</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adc68ab8ccc2b7d8a653278dc7689cb39" name="adc68ab8ccc2b7d8a653278dc7689cb39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc68ab8ccc2b7d8a653278dc7689cb39">&#9670;&#160;</a></span>getActiveServerCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t LoadBalancer::getActiveServerCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of servers currently busy (processing a request). </p>
+
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00113">113</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00078">getInactiveServerCount()</a>, <a class="el" href="main_8cpp_source.html#l00017">main()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
+
+</div>
+</div>
 <a id="a4a8f2c2b9c38d14e74fb8f2bca33bc5b" name="a4a8f2c2b9c38d14e74fb8f2bca33bc5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a8f2c2b9c38d14e74fb8f2bca33bc5b">&#9670;&#160;</a></span>getClock()</h2>
 
@@ -206,7 +266,38 @@ Private Attributes</h2></td></tr>
 
 <p>Current system clock (cycles elapsed). </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00043">43</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00062">62</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+
+</div>
+</div>
+<a id="ac17f0b6f7025ca840c5c860f9c589bb6" name="ac17f0b6f7025ca840c5c860f9c589bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac17f0b6f7025ca840c5c860f9c589bb6">&#9670;&#160;</a></span>getInactiveServerCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t LoadBalancer::getInactiveServerCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of servers currently idle. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00078">78</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -235,9 +326,9 @@ Private Attributes</h2></td></tr>
 
 <p>Current queue size. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00045">45</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00064">64</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -266,9 +357,9 @@ Private Attributes</h2></td></tr>
 
 <p>Number of times a server was removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00055">55</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00074">74</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -297,9 +388,9 @@ Private Attributes</h2></td></tr>
 
 <p>Number of times a server was added. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00053">53</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00072">72</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -328,9 +419,9 @@ Private Attributes</h2></td></tr>
 
 <p>Current number of web servers. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00047">47</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00066">66</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00078">getInactiveServerCount()</a>, and <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -359,9 +450,9 @@ Private Attributes</h2></td></tr>
 
 <p>Total requests dropped (firewall) so far. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00051">51</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00070">70</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -390,9 +481,9 @@ Private Attributes</h2></td></tr>
 
 <p>Total requests processed so far. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00049">49</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00068">68</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -421,12 +512,68 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00016">16</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
-<a id="a46afac3a28d54c708c26340793f37fa1" name="a46afac3a28d54c708c26340793f37fa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46afac3a28d54c708c26340793f37fa1">&#9670;&#160;</a></span>runCycle()</h2>
+<a id="a2f2aa39b1b90342b586116cb01f68917" name="a2f2aa39b1b90342b586116cb01f68917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f2aa39b1b90342b586116cb01f68917">&#9670;&#160;</a></span>initializeServersOnly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LoadBalancer::initializeServersOnly </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numServers</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates web servers only; does not fill the queue (used by <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> for job-type routing). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">numServers</td><td>Number of web servers to create. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00031">31</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a35f663b5b46c01922967c5e9521e6f2a" name="a35f663b5b46c01922967c5e9521e6f2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f663b5b46c01922967c5e9521e6f2a">&#9670;&#160;</a></span>logStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LoadBalancer::logStart </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream *</td>          <td class="paramname"><span class="paramname"><em>log</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes starting queue size and task time range to the log (call once after initialize). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">log</td><td>If non-null, starting info is written here. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00044">44</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
+
+</div>
+</div>
+<a id="a40e607dd65ba09c4ea65cb56a8dd715e" name="a40e607dd65ba09c4ea65cb56a8dd715e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e607dd65ba09c4ea65cb56a8dd715e">&#9670;&#160;</a></span>runCycle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,23 +581,28 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void LoadBalancer::runCycle </td>
           <td>(</td>
-          <td class="paramtype">std::ostream *</td>          <td class="paramname"><span class="paramname"><em>log</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td class="paramtype">std::ostream *</td>          <td class="paramname"><span class="paramname"><em>log</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>addRandomRequest</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Runs one simulation cycle: clock, maybe new request, process servers, scale, telemetry. </p>
+<p>Runs one simulation cycle: clock, optionally new request, process servers, scale, telemetry. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">log</td><td>If non-null, telemetry line is also written here (no ANSI codes). </td></tr>
+    <tr><td class="paramname">addRandomRequest</td><td>If true, may add one random request this cycle; if false, only process (for <a class="el" href="classSwitch.html" title="Routes incoming requests by job_type to a Streaming LB (&#39;S&#39;) or Processing LB (&#39;P&#39;); runs both LBs ea...">Switch</a> mode). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00031">31</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00050">50</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00016">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8cpp_source.html#l00017">main()</a>.</p>
 
 </div>
 </div>
@@ -479,14 +631,14 @@ Private Attributes</h2></td></tr>
 
 <p>Adds or removes a server based on queue size and cooldown. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00061">61</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00095">95</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>.</p>
 
 </div>
 </div>
-<a id="a7a1af59b03cfce71a1de7979bea15a04" name="a7a1af59b03cfce71a1de7979bea15a04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1af59b03cfce71a1de7979bea15a04">&#9670;&#160;</a></span>telemetry()</h2>
+<a id="aaa7500f35c86c259bf215aef6f9cb698" name="aaa7500f35c86c259bf215aef6f9cb698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa7500f35c86c259bf215aef6f9cb698">&#9670;&#160;</a></span>telemetry()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,8 +649,22 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void LoadBalancer::telemetry </td>
           <td>(</td>
-          <td class="paramtype">std::ostream *</td>          <td class="paramname"><span class="paramname"><em>log</em></span></td><td>)</td>
+          <td class="paramtype">std::ostream *</td>          <td class="paramname"><span class="paramname"><em>log</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>added</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dispatched</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>completed</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -508,11 +674,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped). </p>
+<p>Prints and optionally logs one line of telemetry (clock, queue, servers, active, inactive, added, dispatched, completed, processed, dropped). </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00079">79</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8cpp_source.html#l00120">120</a> of file <a class="el" href="LoadBalancer_8cpp_source.html">LoadBalancer.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>.</p>
 
 </div>
 </div>
@@ -538,9 +704,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Pending requests </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00064">64</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00087">87</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00045">getQueueSize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00079">telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00036">enqueueRequest()</a>, <a class="el" href="LoadBalancer_8h_source.html#l00064">getQueueSize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00044">logStart()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
 
 </div>
 </div>
@@ -565,9 +731,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Web server pool </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00065">65</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00088">88</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00047">getServerCount()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00079">telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00113">getActiveServerCount()</a>, <a class="el" href="LoadBalancer_8h_source.html#l00066">getServerCount()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">initializeServersOnly()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
 
 </div>
 </div>
@@ -592,9 +758,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Cycles until next scale decision </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00067">67</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00090">90</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>.</p>
 
 </div>
 </div>
@@ -619,9 +785,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Number of servers removed </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00071">71</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00094">94</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00055">getScaleDowns()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00074">getScaleDowns()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>.</p>
 
 </div>
 </div>
@@ -646,9 +812,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Number of servers added </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00070">70</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00093">93</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00053">getScaleUps()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00072">getScaleUps()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>.</p>
 
 </div>
 </div>
@@ -673,9 +839,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loaded configuration </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00063">63</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00086">86</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00014">LoadBalancer()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00061">scaleCluster()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00036">enqueueRequest()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00014">LoadBalancer()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00044">logStart()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00095">scaleCluster()</a>.</p>
 
 </div>
 </div>
@@ -700,9 +866,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Current cycle count </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00066">66</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00089">89</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00043">getClock()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00079">telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00062">getClock()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
 
 </div>
 </div>
@@ -727,9 +893,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Requests blocked by firewall </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00069">69</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00092">92</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00051">getTotalDropped()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00079">telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8cpp_source.html#l00036">enqueueRequest()</a>, <a class="el" href="LoadBalancer_8h_source.html#l00070">getTotalDropped()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00016">initialize()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
 
 </div>
 </div>
@@ -754,9 +920,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Requests completed so far </p>
 
-<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00068">68</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoadBalancer_8h_source.html#l00091">91</a> of file <a class="el" href="LoadBalancer_8h_source.html">LoadBalancer.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00049">getTotalProcessed()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00031">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00079">telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LoadBalancer_8h_source.html#l00068">getTotalProcessed()</a>, <a class="el" href="LoadBalancer_8cpp_source.html#l00050">runCycle()</a>, and <a class="el" href="LoadBalancer_8cpp_source.html#l00120">telemetry()</a>.</p>
 
 </div>
 </div>

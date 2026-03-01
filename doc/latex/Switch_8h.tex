@@ -1,0 +1,31 @@
+\doxysection{Switch.\+h File Reference}
+\hypertarget{Switch_8h}{}\label{Switch_8h}\index{Switch.h@{Switch.h}}
+
+
+\doxylink{classSwitch}{Switch} that routes requests by job type (Streaming vs Processing) to two load balancers.  
+
+
+{\ttfamily \+\#include "{}Config.\+h"{}}\newline
+{\ttfamily \+\#include "{}Load\+Balancer.\+h"{}}\newline
+{\ttfamily \+\#include "{}Request.\+h"{}}\newline
+{\ttfamily \+\#include $<$iosfwd$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{classSwitch}{Switch}}
+\begin{DoxyCompactList}\small\item\em Routes incoming requests by job\+\_\+type to a Streaming LB (\textquotesingle{}S\textquotesingle{}) or Processing LB (\textquotesingle{}P\textquotesingle{}); runs both LBs each cycle and exposes per-\/\+LB stats. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classSwitch}{Switch} that routes requests by job type (Streaming vs Processing) to two load balancers. 
+
+\begin{DoxyAuthor}{Author}
+Brady Nguyen 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 2026 
+\end{DoxyDate}
+
+
+Definition in file \doxymbox{\hyperlink{Switch_8h_source}{Switch.\+h}}.
+

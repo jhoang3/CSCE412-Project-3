@@ -11,14 +11,15 @@
  * - **LoadBalancer** that holds a queue of requests, dispatches to idle servers, scales
  *   the cluster up/down based on queue size, and applies an IP firewall.
  * - **Config** loaded from a file (thresholds, cooldown, blocked IP ranges).
+ * - **Switch** (bonus): routes requests by job_type to two load balancers (Streaming 'S' and Processing 'P'), with per-LB statistics.
  *
  * @section usage_sec Usage
  *
  * Run the program and enter:
- * - Number of web servers
+ * - Use Switch? (1=yes, 0=no). If yes, enter streaming and processing server counts; if no, enter single web server count.
  * - Run time (clock cycles)
  *
- * The initial queue is filled with (servers × 100) requests. Each cycle, new requests
+ * The initial queue is filled with (servers × 100) requests (or, in Switch mode, requests are split by job type). Each cycle, new requests
  * may arrive at random; the load balancer scales servers when the queue exceeds 80×servers
  * (add one) or falls below 50×servers (remove one, if idle). Blocked IP ranges are
  * configured in config.txt.
@@ -29,7 +30,8 @@
  * - WebServer.h / WebServer.cpp — Single server that processes requests
  * - Config.h / Config.cpp — Configuration and IP blocking (firewall)
  * - LoadBalancer.h / LoadBalancer.cpp — Queue, cluster, scaling, telemetry
- * - main.cpp — Driver: user input, config load, simulation loop, summary
+ * - Switch.h / Switch.cpp — Job-type router to Streaming and Processing load balancers (bonus)
+ * - main.cpp — Driver: user input, config load, single-LB or Switch mode, simulation loop, summary
  *
  * @author Brady Nguyen
  * @date February 2026

@@ -34,16 +34,29 @@ public:
     void initialize(int numServers);
 
     /**
+     * @brief Creates web servers only; does not fill the queue (used by Switch for job-type routing).
+     * @param numServers Number of web servers to create.
+     */
+    void initializeServersOnly(int numServers);
+
+    /**
+     * @brief Enqueues one request after firewall check (used by Switch to route by job type).
+     * @param r Request to enqueue; if IP is blocked, total_dropped is incremented instead.
+     */
+    void enqueueRequest(const Request& r);
+
+    /**
      * @brief Writes starting queue size and task time range to the log (call once after initialize).
      * @param log If non-null, starting info is written here.
      */
     void logStart(std::ostream* log) const;
 
     /**
-     * @brief Runs one simulation cycle: clock, maybe new request, process servers, scale, telemetry.
+     * @brief Runs one simulation cycle: clock, optionally new request, process servers, scale, telemetry.
      * @param log If non-null, telemetry line is also written here (no ANSI codes).
+     * @param addRandomRequest If true, may add one random request this cycle; if false, only process (for Switch mode).
      */
-    void runCycle(std::ostream* log = nullptr);
+    void runCycle(std::ostream* log = nullptr, bool addRandomRequest = true);
 
     /** @brief Current system clock (cycles elapsed). */
     long getClock() const { return system_clock; }

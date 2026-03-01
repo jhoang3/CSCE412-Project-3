@@ -104,6 +104,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4ab5946c048938fae46cf2c3cc39a1d4" id="r_a4ab5946c048938fae46cf2c3cc39a1d4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4ab5946c048938fae46cf2c3cc39a1d4">scaleDownThreshold</a> = 50</td></tr>
 <tr class="memitem:ac84774a2a7cb0b788cf70112d26c1ae6" id="r_ac84774a2a7cb0b788cf70112d26c1ae6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac84774a2a7cb0b788cf70112d26c1ae6">cooldownCycles</a> = 10</td></tr>
 <tr class="memitem:a3cfc17b1e4e71a3a9945112058c197cc" id="r_a3cfc17b1e4e71a3a9945112058c197cc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3cfc17b1e4e71a3a9945112058c197cc">initialQueueMultiplier</a> = 100</td></tr>
+<tr class="memitem:aba931df8a74a30bc6fc80da9f4ec12e0" id="r_aba931df8a74a30bc6fc80da9f4ec12e0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aba931df8a74a30bc6fc80da9f4ec12e0">taskTimeMin</a> = 1</td></tr>
+<tr class="memitem:a8eb96063439f0fb4255f47c7ef89813c" id="r_a8eb96063439f0fb4255f47c7ef89813c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8eb96063439f0fb4255f47c7ef89813c">taskTimeMax</a> = 100</td></tr>
 <tr class="memitem:a061208090457338eb366c6d140d75a5b" id="r_a061208090457338eb366c6d140d75a5b"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a061208090457338eb366c6d140d75a5b">blockedIPRanges</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -124,9 +126,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>IP ranges to block (e.g. "192.168.0.0/24") </p>
 
-<p class="definition">Definition at line <a class="el" href="Config_8h_source.html#l00023">23</a> of file <a class="el" href="Config_8h_source.html">Config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Config_8h_source.html#l00025">25</a> of file <a class="el" href="Config_8h_source.html">Config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Config_8cpp_source.html#l00097">isIPBlocked()</a>, and <a class="el" href="Config_8cpp_source.html#l00061">loadConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Config_8cpp_source.html#l00103">isIPBlocked()</a>, and <a class="el" href="Config_8cpp_source.html#l00061">loadConfig()</a>.</p>
 
 </div>
 </div>
@@ -203,6 +205,44 @@ Public Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="Config_8h_source.html#l00019">19</a> of file <a class="el" href="Config_8h_source.html">Config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Config_8cpp_source.html#l00061">loadConfig()</a>.</p>
+
+</div>
+</div>
+<a id="a8eb96063439f0fb4255f47c7ef89813c" name="a8eb96063439f0fb4255f47c7ef89813c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb96063439f0fb4255f47c7ef89813c">&#9670;&#160;</a></span>taskTimeMax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Config::taskTimeMax = 100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Maximum clock cycles per request (inclusive) </p>
+
+<p class="definition">Definition at line <a class="el" href="Config_8h_source.html#l00024">24</a> of file <a class="el" href="Config_8h_source.html">Config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Request_8cpp_source.html#l00031">generateRandomRequest()</a>, and <a class="el" href="Config_8cpp_source.html#l00061">loadConfig()</a>.</p>
+
+</div>
+</div>
+<a id="aba931df8a74a30bc6fc80da9f4ec12e0" name="aba931df8a74a30bc6fc80da9f4ec12e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba931df8a74a30bc6fc80da9f4ec12e0">&#9670;&#160;</a></span>taskTimeMin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Config::taskTimeMin = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Minimum clock cycles per request (inclusive) </p>
+
+<p class="definition">Definition at line <a class="el" href="Config_8h_source.html#l00023">23</a> of file <a class="el" href="Config_8h_source.html">Config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Request_8cpp_source.html#l00031">generateRandomRequest()</a>, and <a class="el" href="Config_8cpp_source.html#l00061">loadConfig()</a>.</p>
 
 </div>
 </div>

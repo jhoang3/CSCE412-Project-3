@@ -1,7 +1,7 @@
 # Load balancer simulation - Makefile
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra
-SRCS = main.cpp Request.cpp Config.cpp WebServer.cpp LoadBalancer.cpp
+SRCS = main.cpp Request.cpp Config.cpp WebServer.cpp LoadBalancer.cpp Switch.cpp
 TARGET = loadbalancer
 
 $(TARGET): $(SRCS)

@@ -1,0 +1,33 @@
+\doxysection{Switch.\+h}
+\hypertarget{Switch_8h_source}{}\label{Switch_8h_source}\doxymbox{\hyperlink{Switch_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ SWITCH\_H}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ SWITCH\_H}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Config_8h}{Config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LoadBalancer_8h}{LoadBalancer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Request_8h}{Request.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <iosfwd>}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00020}\doxymbox{\hyperlink{classSwitch}{00020}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classSwitch_a5cb828c2e4823804d982ac9592730ac2}{Switch}}\ \{}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00021}00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classSwitch_a5cb828c2e4823804d982ac9592730ac2}{Switch}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg);}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6}{initialize}}(\textcolor{keywordtype}{int}\ numStreamingServers,\ \textcolor{keywordtype}{int}\ numProcessingServers);}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00039}00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classSwitch_a08046701edf558f881535c51705869e5}{runCycle}}(std::ostream*\ log\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00042}\doxymbox{\hyperlink{classSwitch_a80213b1651c8bcb90d33206bd0e0c089}{00042}}\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classLoadBalancer}{LoadBalancer}}\&\ \doxymbox{\hyperlink{classSwitch_a80213b1651c8bcb90d33206bd0e0c089}{getStreamingLB}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}};\ \}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00044}\doxymbox{\hyperlink{classSwitch_a4a099dce0649c3f02e8e5ac3f8d31bb5}{00044}}\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classLoadBalancer}{LoadBalancer}}\&\ \doxymbox{\hyperlink{classSwitch_a4a099dce0649c3f02e8e5ac3f8d31bb5}{getProcessingLB}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}};\ \}}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00046}00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00047}\doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{00047}}\ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ \doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\_}};}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00048}\doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{00048}}\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer}{LoadBalancer}}\ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}};}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00049}\doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{00049}}\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer}{LoadBalancer}}\ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}};}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00050}00050\ \};}
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{Switch_8h_source_l00052}00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SWITCH\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

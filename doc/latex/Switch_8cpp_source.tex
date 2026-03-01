@@ -1,0 +1,42 @@
+\doxysection{Switch.\+cpp}
+\hypertarget{Switch_8cpp_source}{}\label{Switch_8cpp_source}\doxymbox{\hyperlink{Switch_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Switch_8h}{Switch.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Request_8h}{Request.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00012}\doxymbox{\hyperlink{classSwitch_a5cb828c2e4823804d982ac9592730ac2}{00012}}\ \doxymbox{\hyperlink{classSwitch_a5cb828c2e4823804d982ac9592730ac2}{Switch::Switch}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg)}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00013}00013\ \ \ \ \ :\ \doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\_}}(cfg),}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00014}00014\ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}}(cfg),}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00015}00015\ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}}(cfg)\ \{\}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00017}\doxymbox{\hyperlink{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6}{00017}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classSwitch_a62ce1ea61f994cad067a1bad66bb5cf6}{Switch::initialize}}(\textcolor{keywordtype}{int}\ numStreamingServers,\ \textcolor{keywordtype}{int}\ numProcessingServers)\ \{}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00018}00018\ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}}.initializeServersOnly(numStreamingServers);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00019}00019\ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}}.initializeServersOnly(numProcessingServers);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ mult\ =\ \doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\_}}.initialQueueMultiplier;}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ totalInitial\ =\ (numStreamingServers\ +\ numProcessingServers)\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(mult);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ totalInitial;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a3661ab699680aef369ebb84a09434f81}{generateRandomRequest}}(\doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\_}});}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (r.\doxymbox{\hyperlink{structRequest_aafa62a577a34455eb8be90021328b236}{job\_type}}\ ==\ \textcolor{charliteral}{'S'})}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}}.enqueueRequest(r);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}}.enqueueRequest(r);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00032}\doxymbox{\hyperlink{classSwitch_a08046701edf558f881535c51705869e5}{00032}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classSwitch_a08046701edf558f881535c51705869e5}{Switch::runCycle}}(std::ostream*\ log)\ \{}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::rand()\ \%\ 2\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a3661ab699680aef369ebb84a09434f81}{generateRandomRequest}}(\doxymbox{\hyperlink{classSwitch_aacf0eb5368722c2eaacb592a89edf3a8}{settings\_}});}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (r.\doxymbox{\hyperlink{structRequest_aafa62a577a34455eb8be90021328b236}{job\_type}}\ ==\ \textcolor{charliteral}{'S'})}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}}.enqueueRequest(r);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}}.enqueueRequest(r);}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00040}00040\ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a1c49b15de99bba2e1441c3facbdf9688}{streamingLB\_}}.runCycle(log,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00041}00041\ \ \ \ \ \doxymbox{\hyperlink{classSwitch_a2df4c665070850caf7c7af367b964b28}{processingLB\_}}.runCycle(log,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{Switch_8cpp_source_l00042}00042\ \}}
+
+\end{DoxyCode}

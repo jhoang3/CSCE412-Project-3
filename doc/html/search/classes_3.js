@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['webserver_0',['WebServer',['../classWebServer.html',1,'']]]
+  ['switch_0',['Switch',['../classSwitch.html',1,'']]]
 ];

@@ -17,7 +17,7 @@
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00019}00019\ }
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ initialCount\ =\ numServers\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.initialQueueMultiplier);}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ initialCount;\ ++i)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a60e973013d16b72b311665dbb9419fe1}{generateRandomRequest}}();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a3661ab699680aef369ebb84a09434f81}{generateRandomRequest}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}});}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}},\ r.\doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\_in}}))\ \{}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}};}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
@@ -26,74 +26,127 @@
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00028}00028\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00029}00029\ \}}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00031}\doxymbox{\hyperlink{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}{00031}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}{LoadBalancer::runCycle}}(std::ostream*\ log)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00032}00032\ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{comment}{/*\ Maybe\ add\ one\ new\ request\ this\ cycle\ (e.g.\ 50\%\ chance).\ */}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::rand()\ \%\ 2\ ==\ 0)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a60e973013d16b72b311665dbb9419fe1}{generateRandomRequest}}();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}},\ r.\doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\_in}}))\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.push(r);}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00031}\doxymbox{\hyperlink{classLoadBalancer_a2f2aa39b1b90342b586116cb01f68917}{00031}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a2f2aa39b1b90342b586116cb01f68917}{LoadBalancer::initializeServersOnly}}(\textcolor{keywordtype}{int}\ numServers)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00032}00032\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.clear();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00033}00033\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.resize(numServers);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00036}\doxymbox{\hyperlink{classLoadBalancer_a953d13b354698a4723197d55f3bf9913}{00036}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a953d13b354698a4723197d55f3bf9913}{LoadBalancer::enqueueRequest}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structRequest}{Request}}\&\ r)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}},\ r.\doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\_in}}))\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00039}00039\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.push(r);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00042}00042\ \}}
 \DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00043}00043\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{/*\ Process\ each\ server:\ tick\ if\ busy\ (count\ completed\ jobs),\ else\ dispatch\ from\ queue\ if\ available.\ */}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{for}\ (\doxymbox{\hyperlink{classWebServer}{WebServer}}\&\ server\ :\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}})\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.isBusy())\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.tick())\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.empty())\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.front();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.pop();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ server.dispatch(r);}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00055}00055\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00056}00056\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00057}00057\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{scaleCluster}}();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00058}00058\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}{telemetry}}(log);}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00059}00059\ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00061}\doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{00061}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{LoadBalancer::scaleCluster}}()\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ >\ 0)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ -\/-\/\doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00065}00065\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ n\ =\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ q\ =\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (q\ >\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.scaleUpThreshold)\ *\ n)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.emplace\_back();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}{scale\_ups}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ =\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.cooldownCycles;}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00072}00072\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ >\ 1\ \&\&\ !\doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.back().isBusy()\ \&\&\ q\ <\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.scaleDownThreshold)\ *\ n)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.pop\_back();}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}{scale\_downs}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ =\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.cooldownCycles;}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00076}00076\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00077}00077\ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00078}00078\ }
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00079}\doxymbox{\hyperlink{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}{00079}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}{LoadBalancer::telemetry}}(std::ostream*\ log)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{comment}{/*\ ANSI:\ \(\backslash\)033[0m\ reset,\ \(\backslash\)033[32m\ green,\ \(\backslash\)033[31m\ red,\ \(\backslash\)033[33m\ yellow\ */}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ reset\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[0m"{}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ green\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[32m"{}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ red\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[31m"{}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00084}00084\ \ \ \ \ std::ostream\&\ out\ =\ std::cout;}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00085}00085\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}clock="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ queue="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size()}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ servers="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size()}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ green\ <<\ \textcolor{stringliteral}{"{}processed="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}}\ <<\ reset}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ red\ <<\ \textcolor{stringliteral}{"{}dropped="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}}\ <<\ reset}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (log)\ \{}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}clock="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ queue="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size()}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ servers="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size()}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ processed="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ dropped="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00098}00098\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00099}00099\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00044}\doxymbox{\hyperlink{classLoadBalancer_a35f663b5b46c01922967c5e9521e6f2a}{00044}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a35f663b5b46c01922967c5e9521e6f2a}{LoadBalancer::logStart}}(std::ostream*\ log)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (!log)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00046}00046\ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}Starting\ queue\ size:\ "{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00047}00047\ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}Task\ time\ range:\ "{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.taskTimeMin\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.taskTimeMax\ <<\ \textcolor{stringliteral}{"{}\ cycles\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00050}\doxymbox{\hyperlink{classLoadBalancer_a40e607dd65ba09c4ea65cb56a8dd715e}{00050}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a40e607dd65ba09c4ea65cb56a8dd715e}{LoadBalancer::runCycle}}(std::ostream*\ log,\ \textcolor{keywordtype}{bool}\ addRandomRequest)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00051}00051\ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{int}\ added\_this\_cycle\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{if}\ (addRandomRequest\ \&\&\ std::rand()\ \%\ 2\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{Request_8cpp_a3661ab699680aef369ebb84a09434f81}{generateRandomRequest}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}});}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}},\ r.\doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\_in}}))\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.push(r);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ added\_this\_cycle\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00064}00064\ \ \ \ \ \textcolor{keywordtype}{int}\ dispatched\_this\_cycle\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordtype}{int}\ completed\_this\_cycle\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{comment}{/*\ Process\ each\ server:\ tick\ if\ busy\ (count\ completed\ jobs),\ else\ dispatch\ from\ queue\ if\ available.\ */}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{for}\ (\doxymbox{\hyperlink{classWebServer}{WebServer}}\&\ server\ :\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}})\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.isBusy())\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.tick())\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++completed\_this\_cycle;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r\ =\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.front();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.pop();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ server.dispatch(r);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ ++dispatched\_this\_cycle;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ servers\_before\ =\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00082}00082\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{scaleCluster}}();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ servers\_after\ =\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00085}00085\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698}{telemetry}}(log,\ added\_this\_cycle,\ dispatched\_this\_cycle,\ completed\_this\_cycle);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{if}\ (log\ \&\&\ servers\_after\ !=\ servers\_before)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (servers\_after\ >\ servers\_before)}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}\ \ [scale\ up:\ "{}}\ <<\ servers\_before\ <<\ \textcolor{stringliteral}{"{}\ -\/>\ "{}}\ <<\ servers\_after\ <<\ \textcolor{stringliteral}{"{}\ servers]\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}\ \ [scale\ down:\ "{}}\ <<\ servers\_before\ <<\ \textcolor{stringliteral}{"{}\ -\/>\ "{}}\ <<\ servers\_after\ <<\ \textcolor{stringliteral}{"{}\ servers]\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00093}00093\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00095}\doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{00095}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{LoadBalancer::scaleCluster}}()\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ -\/-\/\doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ n\ =\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00101}00101\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ q\ =\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (q\ >\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.scaleUpThreshold)\ *\ n)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.emplace\_back();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}{scale\_ups}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ =\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.cooldownCycles;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00106}00106\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (n\ >\ 1\ \&\&\ !\doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.back().isBusy()\ \&\&\ q\ <\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.scaleDownThreshold)\ *\ n)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.pop\_back();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}{scale\_downs}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ =\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}}.cooldownCycles;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00113}\doxymbox{\hyperlink{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39}{00113}}\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39}{LoadBalancer::getActiveServerCount}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00114}00114\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ n\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classWebServer}{WebServer}}\&\ s\ :\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}})}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isBusy())\ ++n;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{return}\ n;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00120}\doxymbox{\hyperlink{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698}{00120}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_aaa7500f35c86c259bf215aef6f9cb698}{LoadBalancer::telemetry}}(std::ostream*\ log,\ \textcolor{keywordtype}{int}\ added,\ \textcolor{keywordtype}{int}\ dispatched,\ \textcolor{keywordtype}{int}\ completed)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00121}00121\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ active\ =\ \doxymbox{\hyperlink{classLoadBalancer_adc68ab8ccc2b7d8a653278dc7689cb39}{getActiveServerCount}}();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00122}00122\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inactive\ =\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size()\ -\/\ active;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{comment}{/*\ ANSI:\ \(\backslash\)033[0m\ reset,\ \(\backslash\)033[32m\ green,\ \(\backslash\)033[31m\ red,\ \(\backslash\)033[33m\ yellow\ */}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00124}00124\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ reset\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[0m"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ green\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[32m"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00126}00126\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ red\ =\ \textcolor{stringliteral}{"{}\(\backslash\)033[31m"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00127}00127\ \ \ \ \ std::ostream\&\ out\ =\ std::cout;}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00128}00128\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}clock="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ queue="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size()}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ servers="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size()}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ active="{}}\ <<\ active}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ inactive="{}}\ <<\ inactive}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ added="{}}\ <<\ added}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ dispatched="{}}\ <<\ dispatched}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ completed="{}}\ <<\ completed}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ green\ <<\ \textcolor{stringliteral}{"{}processed="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}}\ <<\ reset}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ red\ <<\ \textcolor{stringliteral}{"{}dropped="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}}\ <<\ reset}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (log)\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ *log\ <<\ \textcolor{stringliteral}{"{}clock="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ queue="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size()}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ servers="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size()}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ active="{}}\ <<\ active}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ inactive="{}}\ <<\ inactive}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ added="{}}\ <<\ added}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ dispatched="{}}\ <<\ dispatched}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ completed="{}}\ <<\ completed}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ processed="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ dropped="{}}\ <<\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8cpp_source_l00152}00152\ \}}
 
 \end{DoxyCode}
