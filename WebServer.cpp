@@ -13,12 +13,14 @@ void WebServer::dispatch(const Request& r) {
     busy = true;
 }
 
-void WebServer::tick() {
-    if (!busy) return;
+bool WebServer::tick() {
+    if (!busy) return false;
     --countdown_timer;
     if (countdown_timer <= 0) {
         busy = false;
+        return true;
     }
+    return false;
 }
 
 bool WebServer::isBusy() const {

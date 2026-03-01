@@ -24,8 +24,9 @@ public:
 
     /**
      * @brief Advances one clock cycle; decrements the job timer and marks idle when done.
+     * @return true if a job was completed this cycle, false otherwise.
      */
-    void tick();
+    bool tick();
 
     /**
      * @brief Returns whether the server is currently processing a request.

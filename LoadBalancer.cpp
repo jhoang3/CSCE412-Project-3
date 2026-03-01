@@ -69,7 +69,7 @@ void LoadBalancer::scaleCluster() {
         cluster.emplace_back();
         ++scale_ups;
         cooldown_timer = settings.cooldownCycles;
-    } else if (n > 1 && q < static_cast<size_t>(settings.scaleDownThreshold) * n) {
+    } else if (n > 1 && !cluster.back().isBusy() && q < static_cast<size_t>(settings.scaleDownThreshold) * n) {
         cluster.pop_back();
         ++scale_downs;
         cooldown_timer = settings.cooldownCycles;
