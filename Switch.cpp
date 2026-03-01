@@ -1,4 +1,4 @@
-/**
+ /**
  * @file Switch.cpp
  * @brief Implementation of the Switch (job-type routing to two load balancers).
  * @author Brady Nguyen
@@ -30,7 +30,7 @@ void Switch::initialize(int numStreamingServers, int numProcessingServers) {
 }
 
 void Switch::runCycle(std::ostream* log) {
-    if (std::rand() % 2 == 0) {
+    if ((std::rand() % 100) < settings_.requestArrivalChance) {
         Request r = generateRandomRequest(settings_);
         if (r.job_type == 'S')
             streamingLB_.enqueueRequest(r);

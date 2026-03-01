@@ -93,6 +93,13 @@ bool loadConfig(const std::string& path, Config& out) {
         } else if (key == "taskTimeMax") {
             int v = 100;
             if (std::istringstream(value) >> v) out.taskTimeMax = v;
+        } else if (key == "requestArrivalChance") {
+            int v = 50;
+            if (std::istringstream(value) >> v) {
+                if (v < 0) v = 0;
+                if (v > 100) v = 100;
+                out.requestArrivalChance = v;
+            }
         } else if (key == "blockedRange" || key == "blockedIP") {
             if (!value.empty()) out.blockedIPRanges.push_back(value);
         }

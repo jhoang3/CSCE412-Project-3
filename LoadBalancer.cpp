@@ -51,7 +51,7 @@ void LoadBalancer::runCycle(std::ostream* log, bool addRandomRequest) {
     ++system_clock;
 
     int added_this_cycle = 0;
-    if (addRandomRequest && std::rand() % 2 == 0) {
+    if (addRandomRequest && (std::rand() % 100) < settings.requestArrivalChance) {
         Request r = generateRandomRequest(settings);
         if (isIPBlocked(settings, r.IP_in)) {
             ++total_dropped;
@@ -92,6 +92,7 @@ void LoadBalancer::runCycle(std::ostream* log, bool addRandomRequest) {
     }
 }
 
+/* Spec §10: Goal keep queue between 50× and 80× servers. If > 80× add 1 server, wait n cycles. If < 50× remove 1 server, wait n. */
 void LoadBalancer::scaleCluster() {
     if (cooldown_timer > 0) {
         --cooldown_timer;

@@ -1,10 +1,16 @@
-# Load balancer configuration
+# Load balancer configuration (goal: queue between 50*servers and 80*servers)
+# Try different values (point 11) to understand capacity:
 scaleUpThreshold=80
 scaleDownThreshold=50
 cooldownCycles=10
 initialQueueMultiplier=100
 taskTimeMin=1
 taskTimeMax=100
+requestArrivalChance=20
+
+# requestArrivalChance: 0-100, chance each cycle a new request arrives (lighter=30, heavier=70)
+# cooldownCycles: rest (n) between adding/removing servers; smaller = scale faster
+# taskTimeMin/taskTimeMax: length of time a process takes; longer = more load per request
 
 blockedRange=10.0.0.0/8
 blockedRange=192.168.0.0/16
