@@ -1,6 +1,6 @@
 /**
  * @file LoadBalancer.cpp
- * @brief Implementation of the load balancer (Part 1: constructor and initialize).
+ * @brief Implementation of the load balancer (Parts 1–2: constructor, initialize, runCycle).
  * @author Brady Nguyen
  * @date February 2026
  */
@@ -8,6 +8,7 @@
 #include "LoadBalancer.h"
 #include "Config.h"
 #include "Request.h"
+#include <cstdlib>
 
 LoadBalancer::LoadBalancer(const Config& cfg) : settings(cfg) {}
 
@@ -27,8 +28,33 @@ void LoadBalancer::initialize(int numServers) {
 }
 
 void LoadBalancer::runCycle(std::ostream* log) {
-    (void)log;
-    /* Part 2: to be implemented */
+    ++system_clock;
+
+    /* Maybe add one new request this cycle (e.g. 50% chance). */
+    if (std::rand() % 2 == 0) {
+        Request r = generateRandomRequest();
+        if (isIPBlocked(settings, r.IP_in)) {
+            ++total_dropped;
+        } else {
+            buffer.push(r);
+        }
+    }
+
+    /* Process each server: tick if busy (count completed jobs), else dispatch from queue if available. */
+    for (WebServer& server : cluster) {
+        if (server.isBusy()) {
+            if (server.tick()) {
+                ++total_processed;
+            }
+        } else if (!buffer.empty()) {
+            Request r = buffer.front();
+            buffer.pop();
+            server.dispatch(r);
+        }
+    }
+
+    scaleCluster();
+    telemetry(log);
 }
 
 void LoadBalancer::scaleCluster() {
