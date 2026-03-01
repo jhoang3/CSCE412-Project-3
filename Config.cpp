@@ -14,11 +14,13 @@
 
 namespace {
 
+/** @brief Trims leading and trailing whitespace from a string. */
 void trim(std::string& s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char c) { return !std::isspace(c); }));
     s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char c) { return !std::isspace(c); }).base(), s.end());
 }
 
+/** @brief Parses "a.b.c.d" or "a.b.c.d/prefix" into base address and prefix length. */
 bool parseIPRange(const std::string& s, uint32_t& outBase, int& outPrefix) {
     std::istringstream iss(s);
     int a, b, c, d;
@@ -37,6 +39,7 @@ bool parseIPRange(const std::string& s, uint32_t& outBase, int& outPrefix) {
     return true;
 }
 
+/** @brief Converts dotted-decimal IP string to 32-bit value. */
 uint32_t ipStringToU32(const std::string& ip) {
     uint32_t base;
     int prefix;
@@ -45,6 +48,7 @@ uint32_t ipStringToU32(const std::string& ip) {
     return base;
 }
 
+/** @brief Returns true if ip is inside the range given by base and prefix length. */
 bool ipInRange(uint32_t ip, uint32_t base, int prefixLen) {
     if (prefixLen <= 0) return true;
     if (prefixLen >= 32) return ip == base;

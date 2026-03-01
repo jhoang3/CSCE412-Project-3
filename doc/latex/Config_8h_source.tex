@@ -1,0 +1,26 @@
+\doxysection{Config.\+h}
+\hypertarget{Config_8h_source}{}\label{Config_8h_source}\doxymbox{\hyperlink{Config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_H}}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ CONFIG\_H}}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00018}\doxymbox{\hyperlink{structConfig}{00018}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structConfig}{Config}}\ \{}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00019}\doxymbox{\hyperlink{structConfig_a3290aa515456377bae18cf0bde35b7c6}{00019}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structConfig_a3290aa515456377bae18cf0bde35b7c6}{scaleUpThreshold}}\ =\ 80;\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00020}\doxymbox{\hyperlink{structConfig_a4ab5946c048938fae46cf2c3cc39a1d4}{00020}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structConfig_a4ab5946c048938fae46cf2c3cc39a1d4}{scaleDownThreshold}}\ =\ 50;\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00021}\doxymbox{\hyperlink{structConfig_ac84774a2a7cb0b788cf70112d26c1ae6}{00021}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structConfig_ac84774a2a7cb0b788cf70112d26c1ae6}{cooldownCycles}}\ =\ 10;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00022}\doxymbox{\hyperlink{structConfig_a3cfc17b1e4e71a3a9945112058c197cc}{00022}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structConfig_a3cfc17b1e4e71a3a9945112058c197cc}{initialQueueMultiplier}}\ =\ 100;\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00023}\doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{00023}}\ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blockedIPRanges}};\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00024}00024\ \};}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00032}00032\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{Config_8h_adc67c3f9738fed6cbcd4e07c5863f32b}{loadConfig}}(\textcolor{keyword}{const}\ std::string\&\ path,\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ out);}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00040}00040\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{Config_8h_a42fa6462d87d337eee295977d7fc98cc}{isIPBlocked}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg,\ \textcolor{keyword}{const}\ std::string\&\ ip);}
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{Config_8h_source_l00042}00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

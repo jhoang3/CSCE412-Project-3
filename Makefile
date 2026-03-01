@@ -10,4 +10,8 @@ $(TARGET): $(SRCS)
 clean:
 	rm -f $(TARGET) loadbalancer.log
 
-.PHONY: clean
+# Generate Doxygen HTML docs (requires doxygen installed). Output in doc/html/
+docs:
+	doxygen Doxyfile
+
+.PHONY: clean docs

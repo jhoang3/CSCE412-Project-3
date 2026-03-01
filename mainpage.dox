@@ -1,0 +1,36 @@
+/**
+ * @mainpage Load Balancer Simulation
+ *
+ * @section intro_sec Introduction
+ *
+ * CSCE 412 Project 3: A simulation of a load balancer that distributes web requests
+ * across a cluster of servers. The system includes:
+ *
+ * - **Request** generation with random IPs, processing time (cycles), and job type (P/S).
+ * - **WebServer** instances that process one request at a time over multiple clock cycles.
+ * - **LoadBalancer** that holds a queue of requests, dispatches to idle servers, scales
+ *   the cluster up/down based on queue size, and applies an IP firewall.
+ * - **Config** loaded from a file (thresholds, cooldown, blocked IP ranges).
+ *
+ * @section usage_sec Usage
+ *
+ * Run the program and enter:
+ * - Number of web servers
+ * - Run time (clock cycles)
+ *
+ * The initial queue is filled with (servers × 100) requests. Each cycle, new requests
+ * may arrive at random; the load balancer scales servers when the queue exceeds 80×servers
+ * (add one) or falls below 50×servers (remove one, if idle). Blocked IP ranges are
+ * configured in config.txt.
+ *
+ * @section files_sec Key Files
+ *
+ * - Request.h / Request.cpp — Request struct and random request generator
+ * - WebServer.h / WebServer.cpp — Single server that processes requests
+ * - Config.h / Config.cpp — Configuration and IP blocking (firewall)
+ * - LoadBalancer.h / LoadBalancer.cpp — Queue, cluster, scaling, telemetry
+ * - main.cpp — Driver: user input, config load, simulation loop, summary
+ *
+ * @author Brady Nguyen
+ * @date February 2026
+ */

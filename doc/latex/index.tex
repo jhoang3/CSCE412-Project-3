@@ -1,0 +1,34 @@
+\chapter{Load Balancer Simulation }
+\hypertarget{index}{}\label{index}\index{Load Balancer Simulation@{Load Balancer Simulation}}
+\hypertarget{index_intro_sec}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{index_intro_sec}
+CSCE 412 Project 3:\+ A simulation of a load balancer that distributes web requests across a cluster of servers. The system includes:\+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{\doxylink{structRequest}{Request}}} generation with random IPs, processing time (cycles), and job type (P/\+S).
+\item {\bfseries{\doxylink{classWebServer}{Web\+Server}}} instances that process one request at a time over multiple clock cycles.
+\item {\bfseries{\doxylink{classLoadBalancer}{Load\+Balancer}}} that holds a queue of requests, dispatches to idle servers, scales the cluster up/\+down based on queue size, and applies an IP firewall.
+\item {\bfseries{\doxylink{structConfig}{Config}}} loaded from a file (thresholds, cooldown, blocked IP ranges).
+\end{DoxyItemize}\hypertarget{index_usage_sec}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{index_usage_sec}
+Run the program and enter:\+
+\begin{DoxyItemize}
+\item Number of web servers
+\item Run time (clock cycles)
+\end{DoxyItemize}
+
+The initial queue is filled with (servers × 100) requests. Each cycle, new requests may arrive at random; the load balancer scales servers when the queue exceeds 80×servers (add one) or falls below 50×servers (remove one, if idle). Blocked IP ranges are configured in config.\+txt.\hypertarget{index_files_sec}{}\doxysection{\texorpdfstring{Key Files}{Key Files}}\label{index_files_sec}
+
+\begin{DoxyItemize}
+\item \doxylink{Request_8h}{Request.\+h} /\+ \doxylink{Request_8cpp}{Request.\+cpp} — \doxylink{structRequest}{Request} struct and random request generator
+\item \doxylink{WebServer_8h}{Web\+Server.\+h} /\+ \doxylink{WebServer_8cpp}{Web\+Server.\+cpp} — Single server that processes requests
+\item \doxylink{Config_8h}{Config.\+h} /\+ \doxylink{Config_8cpp}{Config.\+cpp} — Configuration and IP blocking (firewall)
+\item \doxylink{LoadBalancer_8h}{Load\+Balancer.\+h} /\+ \doxylink{LoadBalancer_8cpp}{Load\+Balancer.\+cpp} — Queue, cluster, scaling, telemetry
+\item \doxylink{main_8cpp}{main.\+cpp} — Driver:\+ user input, config load, simulation loop, summary
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Brady Nguyen 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 2026 
+\end{DoxyDate}

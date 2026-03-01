@@ -1,0 +1,59 @@
+\doxysection{Request.\+h File Reference}
+\hypertarget{Request_8h}{}\label{Request_8h}\index{Request.h@{Request.h}}
+
+
+\doxylink{structRequest}{Request} struct and random request generator for load balancer simulation.  
+
+
+{\ttfamily \+\#include $<$string$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structRequest}{Request}}
+\begin{DoxyCompactList}\small\item\em Represents a single web request with IP addresses, processing time, and job type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structRequest}{Request}} \doxymbox{\hyperlink{Request_8h_a60e973013d16b72b311665dbb9419fe1}{generate\+Random\+Request}} ()
+\begin{DoxyCompactList}\small\item\em Generates a random request with random IPs, cycle count, and job type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{structRequest}{Request} struct and random request generator for load balancer simulation. 
+
+\begin{DoxyAuthor}{Author}
+Brady Nguyen 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 2026 
+\end{DoxyDate}
+
+
+Definition in file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{Request_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{Request_8h_a60e973013d16b72b311665dbb9419fe1}\index{Request.h@{Request.h}!generateRandomRequest@{generateRandomRequest}}
+\index{generateRandomRequest@{generateRandomRequest}!Request.h@{Request.h}}
+\doxysubsubsection{\texorpdfstring{generateRandomRequest()}{generateRandomRequest()}}
+{\footnotesize\ttfamily \label{Request_8h_a60e973013d16b72b311665dbb9419fe1} 
+\doxymbox{\hyperlink{structRequest}{Request}} generate\+Random\+Request (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a random request with random IPs, cycle count, and job type. 
+
+\begin{DoxyReturn}{Returns}
+A new \doxylink{structRequest}{Request} with random IP\+\_\+in, IP\+\_\+out, cycles\+\_\+needed (e.\+g. 1–100), and job\+\_\+type (\textquotesingle{}P\textquotesingle{} or \textquotesingle{}S\textquotesingle{}). 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{Request_8cpp_source_l00030}{30}} of file \doxymbox{\hyperlink{Request_8cpp_source}{Request.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{Load\+Balancer::\+initialize()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{Load\+Balancer::\+run\+Cycle()}}.
+

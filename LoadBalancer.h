@@ -55,18 +55,20 @@ public:
     int getScaleDowns() const { return scale_downs; }
 
 private:
+    /** @brief Adds or removes a server based on queue size and cooldown. */
     void scaleCluster();
+    /** @brief Prints and optionally logs one line of telemetry (clock, queue, servers, processed, dropped). */
     void telemetry(std::ostream* log);
 
-    Config settings;
-    std::queue<Request> buffer;
-    std::vector<WebServer> cluster;
-    long system_clock = 0;
-    int cooldown_timer = 0;
-    int total_processed = 0;
-    int total_dropped = 0;
-    int scale_ups = 0;
-    int scale_downs = 0;
+    Config settings;                    /**< Loaded configuration */
+    std::queue<Request> buffer;          /**< Pending requests */
+    std::vector<WebServer> cluster;      /**< Web server pool */
+    long system_clock = 0;               /**< Current cycle count */
+    int cooldown_timer = 0;              /**< Cycles until next scale decision */
+    int total_processed = 0;             /**< Requests completed so far */
+    int total_dropped = 0;               /**< Requests blocked by firewall */
+    int scale_ups = 0;                   /**< Number of servers added */
+    int scale_downs = 0;                 /**< Number of servers removed */
 };
 
 #endif /* LOADBALANCER_H */

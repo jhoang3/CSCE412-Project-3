@@ -1,0 +1,35 @@
+\doxysection{Request.\+cpp}
+\hypertarget{Request_8cpp_source}{}\label{Request_8cpp_source}\doxymbox{\hyperlink{Request_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Request_8h}{Request.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00013}00013\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00016}00016\ \textcolor{keywordtype}{int}\ randomInRange(\textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max)\ \{}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{return}\ min\ +\ (std::rand()\ \%\ (max\ -\/\ min\ +\ 1));}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00021}00021\ std::string\ randomIP()\ \{}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00022}00022\ \ \ \ \ std::ostringstream\ oss;}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00023}00023\ \ \ \ \ oss\ <<\ randomInRange(1,\ 223)\ <<\ \textcolor{charliteral}{'.'}\ <<\ randomInRange(0,\ 255)\ <<\ \textcolor{charliteral}{'.'}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ <<\ randomInRange(0,\ 255)\ <<\ \textcolor{charliteral}{'.'}\ <<\ randomInRange(1,\ 254);}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ oss.str();}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00028}00028\ \}\ \textcolor{comment}{//\ anonymous\ namespace}}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00030}\doxymbox{\hyperlink{Request_8cpp_a60e973013d16b72b311665dbb9419fe1}{00030}}\ \doxymbox{\hyperlink{structRequest}{Request}}\ \doxymbox{\hyperlink{Request_8cpp_a60e973013d16b72b311665dbb9419fe1}{generateRandomRequest}}()\ \{}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00031}00031\ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ r;}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00032}00032\ \ \ \ \ r.\doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\_in}}\ =\ randomIP();}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00033}00033\ \ \ \ \ r.\doxymbox{\hyperlink{structRequest_af1e71607c4e61c84c0fd3ac02ee092e9}{IP\_out}}\ =\ randomIP();}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00034}00034\ \ \ \ \ r.\doxymbox{\hyperlink{structRequest_a6c816258f9c97cb608d75d8656afead1}{cycles\_needed}}\ =\ randomInRange(1,\ 100);}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00035}00035\ \ \ \ \ r.\doxymbox{\hyperlink{structRequest_aafa62a577a34455eb8be90021328b236}{job\_type}}\ =\ (std::rand()\ \%\ 2\ ==\ 0)\ ?\ \textcolor{charliteral}{'P'}\ :\ \textcolor{charliteral}{'S'};}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{\Hypertarget{Request_8cpp_source_l00037}00037\ \}}
+
+\end{DoxyCode}

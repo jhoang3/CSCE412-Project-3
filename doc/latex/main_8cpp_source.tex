@@ -1,0 +1,67 @@
+\doxysection{main.\+cpp}
+\hypertarget{main_8cpp_source}{}\label{main_8cpp_source}\doxymbox{\hyperlink{main_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Config_8h}{Config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LoadBalancer_8h}{LoadBalancer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00016}\doxymbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{00016}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00017}00017\ \ \ \ \ std::srand(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\textcolor{keyword}{>}(std::time(\textcolor{keyword}{nullptr})));}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{int}\ numServers\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{int}\ runTime\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00021}00021\ \ \ \ \ std::string\ configPath\ =\ \textcolor{stringliteral}{"{}config.txt"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00023}00023\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ number\ of\ web\ servers:\ "{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00024}00024\ \ \ \ \ std::cin\ >>\ numServers;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00025}00025\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ run\ time\ (clock\ cycles):\ "{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00026}00026\ \ \ \ \ std::cin\ >>\ runTime;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (numServers\ <=\ 0\ ||\ runTime\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Invalid\ input:\ servers\ and\ run\ time\ must\ be\ positive.\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00033}00033\ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ cfg;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{Config_8cpp_adc67c3f9738fed6cbcd4e07c5863f32b}{loadConfig}}(configPath,\ cfg))\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Config\ file\ '"{}}\ <<\ configPath\ <<\ \textcolor{stringliteral}{"{}'\ not\ found;\ using\ defaults.\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00038}00038\ \ \ \ \ \doxymbox{\hyperlink{classLoadBalancer}{LoadBalancer}}\ lb(cfg);}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00039}00039\ \ \ \ \ lb.\doxymbox{\hyperlink{classLoadBalancer_a16fe3fd208a89a33ea8428c24d619e44}{initialize}}(numServers);}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00041}00041\ \ \ \ \ std::ofstream\ logFile(\textcolor{stringliteral}{"{}loadbalancer.log"{}});}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00042}00042\ \ \ \ \ std::ostream*\ log\ =\ logFile.is\_open()\ ?\ \&logFile\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cycle\ =\ 0;\ cycle\ <\ runTime;\ ++cycle)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ lb.\doxymbox{\hyperlink{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}{runCycle}}(log);}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00048}00048\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Summary\ -\/-\/-\/\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00049}00049\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ processed:\ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a650baa17f89cf43513df60d04f851dad}{getTotalProcessed}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00050}00050\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ dropped:\ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}{getTotalDropped}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00051}00051\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Scale-\/ups:\ \ \ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}{getScaleUps}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00052}00052\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Scale-\/downs:\ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}{getScaleDowns}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00053}00053\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Final\ servers:\ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a26f96138c3f861eae6fbf62d1d4ea02e}{getServerCount}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00054}00054\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Final\ queue:\ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}{getQueueSize}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{if}\ (log)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Summary\ -\/-\/-\/\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Total\ processed:\ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a650baa17f89cf43513df60d04f851dad}{getTotalProcessed}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Total\ dropped:\ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}{getTotalDropped}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Scale-\/ups:\ \ \ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}{getScaleUps}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Scale-\/downs:\ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}{getScaleDowns}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Final\ servers:\ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a26f96138c3f861eae6fbf62d1d4ea02e}{getServerCount}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ logFile\ <<\ \textcolor{stringliteral}{"{}Final\ queue:\ \ \ \ \ "{}}\ <<\ lb.\doxymbox{\hyperlink{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}{getQueueSize}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00067}00067\ \}}
+
+\end{DoxyCode}

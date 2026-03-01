@@ -1,0 +1,27 @@
+\doxysection{Web\+Server.\+h}
+\hypertarget{WebServer_8h_source}{}\label{WebServer_8h_source}\doxymbox{\hyperlink{WebServer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ WEBSERVER\_H}}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ WEBSERVER\_H}}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Request_8h}{Request.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00017}\doxymbox{\hyperlink{classWebServer}{00017}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classWebServer}{WebServer}}\ \{}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00018}00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classWebServer_acd9c353b71962c299c8117317b190325}{dispatch}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structRequest}{Request}}\&\ r);}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classWebServer_af3fbbb5c55f04c42e951f72c6cb6e9e9}{tick}}();}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00035}00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classWebServer_a9a382239f638ad2b1f57621a37430874}{isBusy}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00037}00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00038}\doxymbox{\hyperlink{classWebServer_a824858404e94150a2c8bea9256584509}{00038}}\ \ \ \ \ \doxymbox{\hyperlink{structRequest}{Request}}\ \doxymbox{\hyperlink{classWebServer_a824858404e94150a2c8bea9256584509}{active\_job}}\{\};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00039}\doxymbox{\hyperlink{classWebServer_a16dfe805312693427a6a0d910615ad90}{00039}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classWebServer_a16dfe805312693427a6a0d910615ad90}{countdown\_timer}}\ =\ 0;\ \ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00040}\doxymbox{\hyperlink{classWebServer_a702afd03031519bc17e80bbbc0370c5a}{00040}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classWebServer_a702afd03031519bc17e80bbbc0370c5a}{busy}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00041}00041\ \};}
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{WebServer_8h_source_l00043}00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WEBSERVER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

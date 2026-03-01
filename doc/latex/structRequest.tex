@@ -1,0 +1,95 @@
+\doxysection{Request Struct Reference}
+\hypertarget{structRequest}{}\label{structRequest}\index{Request@{Request}}
+
+
+Represents a single web request with IP addresses, processing time, and job type.  
+
+
+
+
+{\ttfamily \+\#include $<$Request.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}{IP\+\_\+in}}
+\item 
+std::\+string \doxymbox{\hyperlink{structRequest_af1e71607c4e61c84c0fd3ac02ee092e9}{IP\+\_\+out}}
+\item 
+int \doxymbox{\hyperlink{structRequest_a6c816258f9c97cb608d75d8656afead1}{cycles\+\_\+needed}}
+\item 
+char \doxymbox{\hyperlink{structRequest_aafa62a577a34455eb8be90021328b236}{job\+\_\+type}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single web request with IP addresses, processing time, and job type. 
+
+Definition at line \doxymbox{\hyperlink{Request_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structRequest_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structRequest_a6c816258f9c97cb608d75d8656afead1}\index{Request@{Request}!cycles\_needed@{cycles\_needed}}
+\index{cycles\_needed@{cycles\_needed}!Request@{Request}}
+\doxysubsubsection{\texorpdfstring{cycles\_needed}{cycles\_needed}}
+{\footnotesize\ttfamily \label{structRequest_a6c816258f9c97cb608d75d8656afead1} 
+int Request::\+cycles\+\_\+needed}
+
+Clock cycles required to process this request 
+
+Definition at line \doxymbox{\hyperlink{Request_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{WebServer_8cpp_source_l00010}{Web\+Server::\+dispatch()}}, and \doxymbox{\hyperlink{Request_8cpp_source_l00030}{generate\+Random\+Request()}}.
+
+\Hypertarget{structRequest_a662aeb6e2c684b9111ec13b14d7ef643}\index{Request@{Request}!IP\_in@{IP\_in}}
+\index{IP\_in@{IP\_in}!Request@{Request}}
+\doxysubsubsection{\texorpdfstring{IP\_in}{IP\_in}}
+{\footnotesize\ttfamily \label{structRequest_a662aeb6e2c684b9111ec13b14d7ef643} 
+std::\+string Request::\+\+IP\+\_\+in}
+
+Requester IP address 
+
+Definition at line \doxymbox{\hyperlink{Request_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Request_8cpp_source_l00030}{generate\+Random\+Request()}}, \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{Load\+Balancer::\+initialize()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{Load\+Balancer::\+run\+Cycle()}}.
+
+\Hypertarget{structRequest_af1e71607c4e61c84c0fd3ac02ee092e9}\index{Request@{Request}!IP\_out@{IP\_out}}
+\index{IP\_out@{IP\_out}!Request@{Request}}
+\doxysubsubsection{\texorpdfstring{IP\_out}{IP\_out}}
+{\footnotesize\ttfamily \label{structRequest_af1e71607c4e61c84c0fd3ac02ee092e9} 
+std::\+string Request::\+\+IP\+\_\+out}
+
+Response destination IP address 
+
+Definition at line \doxymbox{\hyperlink{Request_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Request_8cpp_source_l00030}{generate\+Random\+Request()}}.
+
+\Hypertarget{structRequest_aafa62a577a34455eb8be90021328b236}\index{Request@{Request}!job\_type@{job\_type}}
+\index{job\_type@{job\_type}!Request@{Request}}
+\doxysubsubsection{\texorpdfstring{job\_type}{job\_type}}
+{\footnotesize\ttfamily \label{structRequest_aafa62a577a34455eb8be90021328b236} 
+char Request::\+job\+\_\+type}
+
+\textquotesingle{}P\textquotesingle{} = Processing, \textquotesingle{}S\textquotesingle{} = Streaming 
+
+Definition at line \doxymbox{\hyperlink{Request_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{Request_8h_source}{Request.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Request_8cpp_source_l00030}{generate\+Random\+Request()}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{Request_8h}{Request.\+h}}\end{DoxyCompactItemize}

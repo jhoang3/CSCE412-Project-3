@@ -1,0 +1,147 @@
+\doxysection{Web\+Server Class Reference}
+\hypertarget{classWebServer}{}\label{classWebServer}\index{WebServer@{WebServer}}
+
+
+Represents a single server that accepts requests and processes them over multiple clock cycles.  
+
+
+
+
+{\ttfamily \+\#include $<$Web\+Server.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{classWebServer_acd9c353b71962c299c8117317b190325}{dispatch}} (const \doxymbox{\hyperlink{structRequest}{Request}} \&r)
+\begin{DoxyCompactList}\small\item\em Assigns a request to this server and marks it busy. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classWebServer_af3fbbb5c55f04c42e951f72c6cb6e9e9}{tick}} ()
+\begin{DoxyCompactList}\small\item\em Advances one clock cycle; decrements the job timer and marks idle when done. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classWebServer_a9a382239f638ad2b1f57621a37430874}{is\+Busy}} () const
+\begin{DoxyCompactList}\small\item\em Returns whether the server is currently processing a request. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structRequest}{Request}} \doxymbox{\hyperlink{classWebServer_a824858404e94150a2c8bea9256584509}{active\+\_\+job}} \{\}
+\item 
+int \doxymbox{\hyperlink{classWebServer_a16dfe805312693427a6a0d910615ad90}{countdown\+\_\+timer}} = 0
+\item 
+bool \doxymbox{\hyperlink{classWebServer_a702afd03031519bc17e80bbbc0370c5a}{busy}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single server that accepts requests and processes them over multiple clock cycles. 
+
+Definition at line \doxymbox{\hyperlink{WebServer_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{WebServer_8h_source}{Web\+Server.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{classWebServer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classWebServer_acd9c353b71962c299c8117317b190325}\index{WebServer@{WebServer}!dispatch@{dispatch}}
+\index{dispatch@{dispatch}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{dispatch()}{dispatch()}}
+{\footnotesize\ttfamily \label{classWebServer_acd9c353b71962c299c8117317b190325} 
+void Web\+Server::\+dispatch (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRequest}{Request}} \&}]{r}{}\end{DoxyParamCaption})}
+
+
+
+Assigns a request to this server and marks it busy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & The request to process. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{WebServer_8cpp_source_l00010}{10}} of file \doxymbox{\hyperlink{WebServer_8cpp_source}{Web\+Server.\+cpp}}.
+
+\Hypertarget{classWebServer_a9a382239f638ad2b1f57621a37430874}\index{WebServer@{WebServer}!isBusy@{isBusy}}
+\index{isBusy@{isBusy}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{isBusy()}{isBusy()}}
+{\footnotesize\ttfamily \label{classWebServer_a9a382239f638ad2b1f57621a37430874} 
+bool Web\+Server::\+is\+Busy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Returns whether the server is currently processing a request. 
+
+\begin{DoxyReturn}{Returns}
+true if busy, false if idle. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{WebServer_8cpp_source_l00026}{26}} of file \doxymbox{\hyperlink{WebServer_8cpp_source}{Web\+Server.\+cpp}}.
+
+\Hypertarget{classWebServer_af3fbbb5c55f04c42e951f72c6cb6e9e9}\index{WebServer@{WebServer}!tick@{tick}}
+\index{tick@{tick}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{tick()}{tick()}}
+{\footnotesize\ttfamily \label{classWebServer_af3fbbb5c55f04c42e951f72c6cb6e9e9} 
+bool Web\+Server::\+tick (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Advances one clock cycle; decrements the job timer and marks idle when done. 
+
+\begin{DoxyReturn}{Returns}
+true if a job was completed this cycle, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{WebServer_8cpp_source_l00016}{16}} of file \doxymbox{\hyperlink{WebServer_8cpp_source}{Web\+Server.\+cpp}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classWebServer_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classWebServer_a824858404e94150a2c8bea9256584509}\index{WebServer@{WebServer}!active\_job@{active\_job}}
+\index{active\_job@{active\_job}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{active\_job}{active\_job}}
+{\footnotesize\ttfamily \label{classWebServer_a824858404e94150a2c8bea9256584509} 
+\doxymbox{\hyperlink{structRequest}{Request}} Web\+Server::\+active\+\_\+job \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+The request currently being processed 
+
+Definition at line \doxymbox{\hyperlink{WebServer_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{WebServer_8h_source}{Web\+Server.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{WebServer_8cpp_source_l00010}{dispatch()}}.
+
+\Hypertarget{classWebServer_a702afd03031519bc17e80bbbc0370c5a}\index{WebServer@{WebServer}!busy@{busy}}
+\index{busy@{busy}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{busy}{busy}}
+{\footnotesize\ttfamily \label{classWebServer_a702afd03031519bc17e80bbbc0370c5a} 
+bool Web\+Server::\+busy = false\hspace{0.3cm}{\ttfamily [private]}}
+
+Whether the server is processing a request 
+
+Definition at line \doxymbox{\hyperlink{WebServer_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{WebServer_8h_source}{Web\+Server.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{WebServer_8cpp_source_l00010}{dispatch()}}, \doxymbox{\hyperlink{WebServer_8cpp_source_l00026}{is\+Busy()}}, and \doxymbox{\hyperlink{WebServer_8cpp_source_l00016}{tick()}}.
+
+\Hypertarget{classWebServer_a16dfe805312693427a6a0d910615ad90}\index{WebServer@{WebServer}!countdown\_timer@{countdown\_timer}}
+\index{countdown\_timer@{countdown\_timer}!WebServer@{WebServer}}
+\doxysubsubsection{\texorpdfstring{countdown\_timer}{countdown\_timer}}
+{\footnotesize\ttfamily \label{classWebServer_a16dfe805312693427a6a0d910615ad90} 
+int Web\+Server::\+countdown\+\_\+timer = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+Cycles remaining until current job completes 
+
+Definition at line \doxymbox{\hyperlink{WebServer_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{WebServer_8h_source}{Web\+Server.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{WebServer_8cpp_source_l00010}{dispatch()}}, and \doxymbox{\hyperlink{WebServer_8cpp_source_l00016}{tick()}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{WebServer_8h}{Web\+Server.\+h}}\item 
+\doxymbox{\hyperlink{WebServer_8cpp}{Web\+Server.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,111 @@
+\doxysection{Config Struct Reference}
+\hypertarget{structConfig}{}\label{structConfig}\index{Config@{Config}}
+
+
+Holds load balancer settings loaded from a config file.  
+
+
+
+
+{\ttfamily \+\#include $<$Config.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{structConfig_a3290aa515456377bae18cf0bde35b7c6}{scale\+Up\+Threshold}} = 80
+\item 
+int \doxymbox{\hyperlink{structConfig_a4ab5946c048938fae46cf2c3cc39a1d4}{scale\+Down\+Threshold}} = 50
+\item 
+int \doxymbox{\hyperlink{structConfig_ac84774a2a7cb0b788cf70112d26c1ae6}{cooldown\+Cycles}} = 10
+\item 
+int \doxymbox{\hyperlink{structConfig_a3cfc17b1e4e71a3a9945112058c197cc}{initial\+Queue\+Multiplier}} = 100
+\item 
+std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{structConfig_a061208090457338eb366c6d140d75a5b}{blocked\+IPRanges}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds load balancer settings loaded from a config file. 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structConfig_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structConfig_a061208090457338eb366c6d140d75a5b}\index{Config@{Config}!blockedIPRanges@{blockedIPRanges}}
+\index{blockedIPRanges@{blockedIPRanges}!Config@{Config}}
+\doxysubsubsection{\texorpdfstring{blockedIPRanges}{blockedIPRanges}}
+{\footnotesize\ttfamily \label{structConfig_a061208090457338eb366c6d140d75a5b} 
+std::\+vector$<$std::\+string$>$ Config::\+blocked\+IPRanges}
+
+IP ranges to block (e.\+g. "{}192.\+168.\+0.\+0/\+24"{}) 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Config_8cpp_source_l00097}{is\+IPBlocked()}}, and \doxymbox{\hyperlink{Config_8cpp_source_l00061}{load\+Config()}}.
+
+\Hypertarget{structConfig_ac84774a2a7cb0b788cf70112d26c1ae6}\index{Config@{Config}!cooldownCycles@{cooldownCycles}}
+\index{cooldownCycles@{cooldownCycles}!Config@{Config}}
+\doxysubsubsection{\texorpdfstring{cooldownCycles}{cooldownCycles}}
+{\footnotesize\ttfamily \label{structConfig_ac84774a2a7cb0b788cf70112d26c1ae6} 
+int Config::\+cooldown\+Cycles = 10}
+
+Cycles to wait after scaling before scaling again 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Config_8cpp_source_l00061}{load\+Config()}}.
+
+\Hypertarget{structConfig_a3cfc17b1e4e71a3a9945112058c197cc}\index{Config@{Config}!initialQueueMultiplier@{initialQueueMultiplier}}
+\index{initialQueueMultiplier@{initialQueueMultiplier}!Config@{Config}}
+\doxysubsubsection{\texorpdfstring{initialQueueMultiplier}{initialQueueMultiplier}}
+{\footnotesize\ttfamily \label{structConfig_a3cfc17b1e4e71a3a9945112058c197cc} 
+int Config::\+initial\+Queue\+Multiplier = 100}
+
+Initial queue size = servers \texorpdfstring{$\ast$}{*} this 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Config_8cpp_source_l00061}{load\+Config()}}.
+
+\Hypertarget{structConfig_a4ab5946c048938fae46cf2c3cc39a1d4}\index{Config@{Config}!scaleDownThreshold@{scaleDownThreshold}}
+\index{scaleDownThreshold@{scaleDownThreshold}!Config@{Config}}
+\doxysubsubsection{\texorpdfstring{scaleDownThreshold}{scaleDownThreshold}}
+{\footnotesize\ttfamily \label{structConfig_a4ab5946c048938fae46cf2c3cc39a1d4} 
+int Config::\+scale\+Down\+Threshold = 50}
+
+Remove server when queue size \texorpdfstring{$<$}{<} this \texorpdfstring{$\ast$}{*} server count 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Config_8cpp_source_l00061}{load\+Config()}}.
+
+\Hypertarget{structConfig_a3290aa515456377bae18cf0bde35b7c6}\index{Config@{Config}!scaleUpThreshold@{scaleUpThreshold}}
+\index{scaleUpThreshold@{scaleUpThreshold}!Config@{Config}}
+\doxysubsubsection{\texorpdfstring{scaleUpThreshold}{scaleUpThreshold}}
+{\footnotesize\ttfamily \label{structConfig_a3290aa515456377bae18cf0bde35b7c6} 
+int Config::\+scale\+Up\+Threshold = 80}
+
+Add server when queue size \texorpdfstring{$>$}{>} this \texorpdfstring{$\ast$}{*} server count 
+
+Definition at line \doxymbox{\hyperlink{Config_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{Config_8h_source}{Config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{Config_8cpp_source_l00061}{load\+Config()}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{Config_8h}{Config.\+h}}\end{DoxyCompactItemize}

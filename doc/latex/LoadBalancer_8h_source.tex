@@ -1,0 +1,49 @@
+\doxysection{Load\+Balancer.\+h}
+\hypertarget{LoadBalancer_8h_source}{}\label{LoadBalancer_8h_source}\doxymbox{\hyperlink{LoadBalancer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ LOADBALANCER\_H}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ LOADBALANCER\_H}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Config_8h}{Config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Request_8h}{Request.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{WebServer_8h}{WebServer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <iosfwd>}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00022}\doxymbox{\hyperlink{classLoadBalancer}{00022}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classLoadBalancer_ad2fa24a055b440b9d1d602c7ae41be01}{LoadBalancer}}\ \{}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00023}00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classLoadBalancer_ad2fa24a055b440b9d1d602c7ae41be01}{LoadBalancer}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structConfig}{Config}}\&\ cfg);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00034}00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a16fe3fd208a89a33ea8428c24d619e44}{initialize}}(\textcolor{keywordtype}{int}\ numServers);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a46afac3a28d54c708c26340793f37fa1}{runCycle}}(std::ostream*\ log\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00043}\doxymbox{\hyperlink{classLoadBalancer_a4a8f2c2b9c38d14e74fb8f2bca33bc5b}{00043}}\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{classLoadBalancer_a4a8f2c2b9c38d14e74fb8f2bca33bc5b}{getClock}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}};\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00045}\doxymbox{\hyperlink{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}{00045}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classLoadBalancer_a2750c29abbe621ef52cb1a5b935a07ce}{getQueueSize}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}}.size();\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00047}\doxymbox{\hyperlink{classLoadBalancer_a26f96138c3f861eae6fbf62d1d4ea02e}{00047}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classLoadBalancer_a26f96138c3f861eae6fbf62d1d4ea02e}{getServerCount}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}}.size();\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00049}\doxymbox{\hyperlink{classLoadBalancer_a650baa17f89cf43513df60d04f851dad}{00049}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a650baa17f89cf43513df60d04f851dad}{getTotalProcessed}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}};\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00051}\doxymbox{\hyperlink{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}{00051}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_ad457eabf9abd57531b301aacda3dcb10}{getTotalDropped}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}};\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00053}\doxymbox{\hyperlink{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}{00053}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a9f733657000dcac05de9b40e2d25cc3b}{getScaleUps}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}{scale\_ups}};\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00055}\doxymbox{\hyperlink{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}{00055}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_ad9b61d568d819ad2d29497ecb7ca6a4c}{getScaleDowns}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}{scale\_downs}};\ \}}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00057}00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a22e465c2a8dbfecabf5c90d053f4b444}{scaleCluster}}();}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00061}00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classLoadBalancer_a7a1af59b03cfce71a1de7979bea15a04}{telemetry}}(std::ostream*\ log);}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00063}\doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{00063}}\ \ \ \ \ \doxymbox{\hyperlink{structConfig}{Config}}\ \doxymbox{\hyperlink{classLoadBalancer_a870137068fe88548727114061d472670}{settings}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00064}\doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{00064}}\ \ \ \ \ std::queue<Request>\ \doxymbox{\hyperlink{classLoadBalancer_ad29ee8a991eebf77f682b4da91fb1e9b}{buffer}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00065}\doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{00065}}\ \ \ \ \ std::vector<WebServer>\ \doxymbox{\hyperlink{classLoadBalancer_aebb658091859f912d184c48d17b13225}{cluster}};\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00066}\doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{00066}}\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{classLoadBalancer_ac2b8520e0f8344cfa08debee42264b7f}{system\_clock}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00067}\doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{00067}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a68d4135753b5c3eaf08c0a855fa5d0b9}{cooldown\_timer}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00068}\doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{00068}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_acb4b5b20aa3d3bac3dc0a70e698b31b5}{total\_processed}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00069}\doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{00069}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a3620bfa0de269e60c7c99a8f2e3c664f}{total\_dropped}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00070}\doxymbox{\hyperlink{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}{00070}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a1f39ab078e5c107f9d1b67f36a3a8561}{scale\_ups}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00071}\doxymbox{\hyperlink{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}{00071}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{classLoadBalancer_a323c05016f2865c7a0f39ef3bcb5f55e}{scale\_downs}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00072}00072\ \};}
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{LoadBalancer_8h_source_l00074}00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LOADBALANCER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

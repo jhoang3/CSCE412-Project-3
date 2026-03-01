@@ -1,0 +1,59 @@
+# Doxyfile for Load Balancer Simulation (CSCE 412 Project 3)
+# Generate with: doxygen Doxyfile
+
+PROJECT_NAME             = "Load Balancer Simulation"
+PROJECT_NUMBER           = "Project 3"
+PROJECT_BRIEF            = "CSCE 412 - Simulated load balancer with request queue, web servers, scaling, and firewall"
+OUTPUT_DIRECTORY         = doc
+CREATE_SUBDIRS           = NO
+OUTPUT_LANGUAGE          = English
+
+# Input
+INPUT                   = . mainpage.dox
+FILE_PATTERNS           = *.h *.cpp *.dox
+RECURSIVE               = NO
+EXCLUDE                 = config.txt Makefile loadbalancer.log
+EXCLUDE_PATTERNS         = .git/
+
+# HTML output (required by assignment)
+GENERATE_HTML           = YES
+HTML_OUTPUT             = html
+HTML_FILE_EXTENSION     = .html
+GENERATE_HTMLHELP       = NO
+GENERATE_DOCSET         = NO
+GENERATE_QHP            = NO
+
+# Extraction
+EXTRACT_ALL             = YES
+EXTRACT_PRIVATE         = YES
+EXTRACT_STATIC          = YES
+EXTRACT_LOCAL_CLASSES   = YES
+HIDE_UNDOC_MEMBERS      = NO
+CASE_SENSE_NAMES        = YES
+HIDE_SCOPE_NAMES        = NO
+SHOW_NAMESPACES         = NO
+
+# Source browsing
+SOURCE_BROWSER          = YES
+INLINE_SOURCES          = NO
+REFERENCED_BY_RELATION  = YES
+REFERENCES_LINK_SOURCE  = YES
+
+# Preprocessor / parsing
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = NO
+EXPAND_ONLY_PREDEF     = NO
+SEARCH_INCLUDES        = YES
+INCLUDE_PATH           =
+INCLUDE_FILE_PATTERNS  =
+PREDEFINED             =
+EXPAND_AS_DEFINED      =
+
+# Diagrams (optional)
+HAVE_DOT               = NO
+
+# Misc
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES

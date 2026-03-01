@@ -1,0 +1,96 @@
+\doxysection{Config.\+cpp File Reference}
+\hypertarget{Config_8cpp}{}\label{Config_8cpp}\index{Config.cpp@{Config.cpp}}
+
+
+Implementation of config loading and IP blocking.  
+
+
+{\ttfamily \+\#include "{}Config.\+h"{}}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$cstdint$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$cctype$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{Config_8cpp_adc67c3f9738fed6cbcd4e07c5863f32b}{load\+Config}} (const std::\+string \&path, \doxymbox{\hyperlink{structConfig}{Config}} \&out)
+\begin{DoxyCompactList}\small\item\em Loads configuration from a file into the given struct. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}{is\+IPBlocked}} (const \doxymbox{\hyperlink{structConfig}{Config}} \&cfg, const std::\+string \&ip)
+\begin{DoxyCompactList}\small\item\em Returns whether an IP address is in any blocked range in the config. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of config loading and IP blocking. 
+
+\begin{DoxyAuthor}{Author}
+Brady Nguyen 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 2026 
+\end{DoxyDate}
+
+
+Definition in file \doxymbox{\hyperlink{Config_8cpp_source}{Config.\+cpp}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{Config_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc}\index{Config.cpp@{Config.cpp}!isIPBlocked@{isIPBlocked}}
+\index{isIPBlocked@{isIPBlocked}!Config.cpp@{Config.cpp}}
+\doxysubsubsection{\texorpdfstring{isIPBlocked()}{isIPBlocked()}}
+{\footnotesize\ttfamily \label{Config_8cpp_a42fa6462d87d337eee295977d7fc98cc} 
+bool is\+IPBlocked (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structConfig}{Config}} \&}]{cfg}{, }\item[{const std::\+string \&}]{ip}{}\end{DoxyParamCaption})}
+
+
+
+Returns whether an IP address is in any blocked range in the config. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cfg} & Loaded configuration (blocked\+IPRanges used). \\
+\hline
+{\em ip} & Dotted-\/decimal IPv4 address (e.\+g. "{}192.\+168.\+1.\+1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if ip is blocked, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{Config_8cpp_source_l00097}{97}} of file \doxymbox{\hyperlink{Config_8cpp_source}{Config.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00016}{Load\+Balancer::\+initialize()}}, and \doxymbox{\hyperlink{LoadBalancer_8cpp_source_l00031}{Load\+Balancer::\+run\+Cycle()}}.
+
+\Hypertarget{Config_8cpp_adc67c3f9738fed6cbcd4e07c5863f32b}\index{Config.cpp@{Config.cpp}!loadConfig@{loadConfig}}
+\index{loadConfig@{loadConfig}!Config.cpp@{Config.cpp}}
+\doxysubsubsection{\texorpdfstring{loadConfig()}{loadConfig()}}
+{\footnotesize\ttfamily \label{Config_8cpp_adc67c3f9738fed6cbcd4e07c5863f32b} 
+bool load\+Config (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{path}{, }\item[{\doxymbox{\hyperlink{structConfig}{Config}} \&}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Loads configuration from a file into the given struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the config file (e.\+g. "{}config.\+txt"{}). \\
+\hline
+{\em out} & \doxylink{structConfig}{Config} struct to fill; existing values used as defaults if key missing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if file was opened and parsed, false on open error (out unchanged). 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{Config_8cpp_source_l00061}{61}} of file \doxymbox{\hyperlink{Config_8cpp_source}{Config.\+cpp}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8cpp_source_l00016}{main()}}.
+
